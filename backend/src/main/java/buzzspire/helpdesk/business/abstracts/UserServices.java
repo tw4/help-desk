@@ -16,4 +16,6 @@ public interface UserServices {
     Result updatePassword(long id, UpdateUserPasswordRequest password);
     ResultData<List<User>> getAll();
     ResultData<User> getById(long id);
+    ResultData<String> login(String email, String password);
+    Result verifyToken(String token);
 }
