@@ -8,6 +8,7 @@ import buzzspire.helpdesk.dto.request.user.UpdateUserBasicInfo;
 import buzzspire.helpdesk.dto.request.user.UpdateUserPasswordRequest;
 import buzzspire.helpdesk.dto.request.user.UserRequest;
 import buzzspire.helpdesk.entities.concreates.User;
+import buzzspire.helpdesk.security.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,11 @@ import java.util.List;
 @Service
 public class UserManager implements UserServices {
     private final UserDAO userDAO;
-    public UserManager(UserDAO userDAO) {
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public UserManager(UserDAO userDAO, JwtTokenProvider jwtTokenProvider) {
         this.userDAO = userDAO;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -83,5 +87,23 @@ public class UserManager implements UserServices {
     @Override
     public ResultData<User> getById(long id) {
         return new ResultData<>(userDAO.getUserById(id), "User", true);
+    }
+
+    @Override
+    public ResultData<String> login(String email, String password) {
+        User user = userDAO.findByEmailAndPassword(email, password);
+        if(user == null ){
+            return new ResultData<>(null, "email or password wrong", false);
+        }
+        String token = jwtTokenProvider.createToken(user);
+        return new ResultData<>(token, "Login successful", true);
+    }
+
+    @Override
+    public Result verifyToken(String token) {
+        if(jwtTokenProvider.validateToken(token)){
+            return new Result(true, "Token is valid");
+        }
+        return new Result(false, "Token is not valid");
     }
 }
