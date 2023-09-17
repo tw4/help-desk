@@ -1,16 +1,9 @@
+# default compose file
+# if you want to development, you need to rename this file to compose.yaml
+
 version: '3.7'
 
 services:
-  helpdesk:
-    image: openjdk:20-jdk-slim
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: helpdesk
-    networks:
-      - mynetwork
-    ports:
-      - 8080:8080
   postgres:
     image: postgres:latest
     container_name: postgres
