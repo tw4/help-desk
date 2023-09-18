@@ -1,5 +1,6 @@
 package buzzspire.helpdesk.dto.request.user;
 
+import buzzspire.helpdesk.entities.concreates.UserRole;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,6 @@ public class UserRequest {
     private String surname;
     private String email;
     private String password;
-    private String role;
+    private UserRole role;
     private String title;
 }

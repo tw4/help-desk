@@ -1,26 +1,29 @@
 package buzzspire.helpdesk.entities.concreates;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Entity
-@Table(name = "users")
+import java.util.Date;
+
+@Table(name = "messages")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Data
 @Builder
-public class User {
+public class Message {
     @GeneratedValue(generator = "increment")
     @Id
     private long id;
-    private String name;
-    private String surname;
-    private String email;
-    private String password;
+    private String message;
+    private Date date;
     @ManyToOne
-    private UserRole role;
-    private String title;
+    private User sender;
+    private String receiver;
+    @ManyToOne
+    private Ticket ticket;
 }
