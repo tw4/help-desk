@@ -6,6 +6,7 @@ import buzzspire.helpdesk.core.utilities.result.ResultData;
 import buzzspire.helpdesk.dataAccess.abstracts.TicketDAO;
 import buzzspire.helpdesk.dto.request.ticket.TicketRequest;
 import buzzspire.helpdesk.entities.concreates.Ticket;
+import buzzspire.helpdesk.entities.concreates.TicketPriority;
 import buzzspire.helpdesk.entities.concreates.User;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class TicketManager implements TicketServices {
             this.ticketDAO.save(Ticket.builder()
                     .title(ticket.getTitle())
                     .description(ticket.getDescription())
-                    .priority(ticket.getPriority())
+                    .priority(TicketPriority.builder().id(ticket.getPriority()).build())
                     .user(User.builder().id(ticket.getUser()).build())
                     .status(ticket.getStatus())
                     .date(ticket.getDate())
