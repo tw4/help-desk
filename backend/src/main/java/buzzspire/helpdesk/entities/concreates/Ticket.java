@@ -20,7 +20,8 @@ public class Ticket {
     private String description;
     @ManyToOne
     private TicketStatus status;
-    private String priority;
+    @ManyToOne
+    private TicketPriority priority;
     private Date date;
     @ManyToOne
     private User user;

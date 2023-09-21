@@ -16,7 +16,7 @@ public class TicketRequest {
     private String title;
     private String description;
     private TicketStatus status;
-    private String priority;
+    private long priority;
     private Date date;
     private long user;
 }
