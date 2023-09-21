@@ -1,6 +1,8 @@
 package buzzspire.helpdesk.entities.concreates;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +17,7 @@ import java.util.Date;
 @Entity
 @Data
 @Builder
-public class Message {
+public class TicketMassage {
     @GeneratedValue(generator = "increment")
     @Id
     private long id;
@@ -23,7 +25,7 @@ public class Message {
     private Date date;
     @ManyToOne
     private User sender;
-    private String receiver;
     @ManyToOne
+    @JsonIgnoreProperties({"messages"})
     private Ticket ticket;
 }

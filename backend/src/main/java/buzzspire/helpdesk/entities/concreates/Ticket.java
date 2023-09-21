@@ -23,8 +23,10 @@ public class Ticket {
     private String priority;
     private Date date;
     @ManyToOne
-    private User userId;
-    private String assignedTo;
-    @OneToMany
-    private List<Message> message;
+    private User user;
+    @ManyToOne
+    private User assignedTo;
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<TicketMassage> messages;
+
 }

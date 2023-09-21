@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserTitleServices {
     ResultData<List<UserTitle>> getAll();
-    Result add(String role);
+    Result add(String title);
     Result update(long id, String title);
     Result delete(long id);
 }
