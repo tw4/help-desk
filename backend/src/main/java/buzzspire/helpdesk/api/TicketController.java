@@ -60,4 +60,10 @@ public class TicketController {
         return ticketServices.addTicketAssignee(ticketId, assigneeId);
     }
 
+    @Operation(summary = "remove Ticket Assignee")
+    @DeleteMapping("/{ticketId}/assignee/")
+    public Result removeTickerAssignee(@PathVariable long ticketId) {
+        return ticketServices.removeTickerAssignee(ticketId);
+    }
+
 }

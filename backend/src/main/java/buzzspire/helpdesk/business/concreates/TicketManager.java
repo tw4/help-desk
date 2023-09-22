@@ -78,5 +78,16 @@ public class TicketManager implements TicketServices {
         return new Result(true, "Ticket assignee added");
     }
 
+    @Override
+    public Result removeTickerAssignee(long ticketId) {
+        Ticket newTicket = ticketDAO.findById(ticketId).get();
+        newTicket.setAssignedTo(null);
+        try {
+            ticketDAO.save(newTicket);
+        } catch (Exception e) {
+            return new Result(false, "Ticket not added");
+        }
+        return new Result(true, "Ticket assignee removed");
+    }
 
 }
