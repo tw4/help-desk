@@ -13,4 +13,5 @@ public interface TicketServices {
     ResultData<List<Ticket>> getAllTicket();
     ResultData<Ticket> getTicketById(long id);
     ResultData<List<Ticket>> getTicketByUserId(long id);
+    Result addTicketAssignee(long ticketId, long assigneeId);
 }

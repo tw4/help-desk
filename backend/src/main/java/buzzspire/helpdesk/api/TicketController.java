@@ -53,4 +53,11 @@ public class TicketController {
         return ticketServices.deleteTicket(id);
     }
 
+
+    @Operation(summary = "add Ticket Assignee")
+    @PutMapping("/{ticketId}/assignee/{assigneeId}")
+    public Result addTicketAssignee(@PathVariable long ticketId, @PathVariable long assigneeId) {
+        return ticketServices.addTicketAssignee(ticketId, assigneeId);
+    }
+
 }

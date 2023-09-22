@@ -62,4 +62,21 @@ public class TicketManager implements TicketServices {
     public ResultData<List<Ticket>> getTicketByUserId(long id) {
         return new ResultData<>(ticketDAO.findAllByUserId(id), "Ticket list", true);
     }
+
+    @Override
+    public Result addTicketAssignee(long ticketId, long assigneeId) {
+        Ticket newTicket = ticketDAO.findById(ticketId).get();
+        newTicket.setAssignedTo(User.builder().id(assigneeId).build());
+
+        try{
+            ticketDAO.save(newTicket);
+        } catch (
+                Exception e) {
+            return new Result(false, "Ticket not added");
+        }
+
+        return new Result(true, "Ticket assignee added");
+    }
+
+
 }
