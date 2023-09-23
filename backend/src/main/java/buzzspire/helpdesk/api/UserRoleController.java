@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/roles")
-@Tag(name = "Role APIs", description = "User Role Operations")
+@Tag(name = "Role APIs")
 public class UserRoleController {
     private final UserRoleServices userRoleService;
 

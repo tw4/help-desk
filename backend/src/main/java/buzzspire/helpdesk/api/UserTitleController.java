@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/titles")
-@Tag(name = "User Title APIs", description = "User Title API")
+@Tag(name = "User Title APIs")
 public class UserTitleController {
 
     private final UserTitleServices userTitleServices;
