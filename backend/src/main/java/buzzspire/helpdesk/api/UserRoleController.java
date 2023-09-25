@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.management.relation.Role;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/roles")
 @Tag(name = "Role APIs")

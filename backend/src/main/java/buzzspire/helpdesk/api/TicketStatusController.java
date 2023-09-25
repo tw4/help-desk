@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @Tag(name = "Ticket status APIs")
 @RestController
 @RequestMapping("/api/status")
