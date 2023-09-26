@@ -36,9 +36,10 @@ public class AdminManager implements AdminServices {
         if (!adminRequest.getSecretKey().equals(secretKey)) {
             return new Result(false, "Secret key is wrong");
         }
+        Admin admin = adminDAO.findByUserId(adminRequest.getUserId());
             try {
-            adminDAO.delete(Admin.builder().user(User.builder().id(adminRequest.getUserId()).build()).build());
-        } catch (Exception e) {
+                adminDAO.delete(admin);
+            } catch (Exception e) {
             return new Result(false, "Admin not removed");
         }
         return new Result(true, "Admin removed");
