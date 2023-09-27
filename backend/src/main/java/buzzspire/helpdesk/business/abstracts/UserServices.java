@@ -12,8 +12,8 @@ import java.util.List;
 public interface UserServices {
     Result add(UserRequest user, String token);
     Result delete(long id, String token);
-    Result updateBasicInfo(long id,UpdateUserBasicInfo user, String token);
-    Result updatePassword(long id, UpdateUserPasswordRequest password, String token);
+    Result updateBasicInfo(UpdateUserBasicInfo user, String token);
+    Result updatePassword(UpdateUserPasswordRequest password, String token);
     ResultData<List<User>> getAll(String token);
     ResultData<User> getById(long id, String token);
     ResultData<String> login(String email, String password);
