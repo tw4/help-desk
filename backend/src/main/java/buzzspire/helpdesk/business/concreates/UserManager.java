@@ -24,7 +24,7 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result add(UserRequest user) {
+    public Result add(UserRequest user,String token) {
         User newUser = User.builder()
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -42,7 +42,7 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result delete(long id) {
+    public Result delete(long id, String token) {
         try {
             userDAO.delete(userDAO.getUserById(id));
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result updateBasicInfo(long id,UpdateUserBasicInfo user) {
+    public Result updateBasicInfo(long id,UpdateUserBasicInfo user, String token) {
         User newUser = userDAO.getUserById(id);
         newUser.setName(user.getName());
         newUser.setSurname(user.getSurname());
@@ -68,7 +68,7 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result updatePassword(long id, UpdateUserPasswordRequest request) {
+    public Result updatePassword(long id, UpdateUserPasswordRequest request, String token) {
         User newUser = userDAO.getUserById(id);
         newUser.setPassword(request.getPassword());
         try {
@@ -80,12 +80,12 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public ResultData<List<User>> getAll() {
+    public ResultData<List<User>> getAll(String token) {
         return new ResultData<>(userDAO.findAll(), "All user list",true);
     }
 
     @Override
-    public ResultData<User> getById(long id) {
+    public ResultData<User> getById(long id, String token) {
         return new ResultData<>(userDAO.getUserById(id), "User", true);
     }
 
@@ -105,5 +105,10 @@ public class UserManager implements UserServices {
             return new Result(true, "Token is valid");
         }
         return new Result(false, "Token is not valid");
+    }
+
+    @Override
+    public ResultData<User> getByEmail(String email) {
+        return new ResultData<>(userDAO.findByEmail(email), "User", true);
     }
 }

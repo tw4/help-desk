@@ -1,7 +1,7 @@
 package buzzspire.helpdesk.dto.request.user;
 
 
-import buzzspire.helpdesk.entities.concreates.UserRole;
+import buzzspire.helpdesk.entities.concreates.RoleEnum;
 import buzzspire.helpdesk.entities.concreates.UserTitle;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,6 @@ public class UpdateUserBasicInfo {
     private String name;
     private String surname;
     private String email;
-    private UserRole role;
+    private RoleEnum role;
     private UserTitle title;
 }

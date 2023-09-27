@@ -10,12 +10,13 @@ import buzzspire.helpdesk.entities.concreates.User;
 import java.util.List;
 
 public interface UserServices {
-    Result add(UserRequest user);
-    Result delete(long id);
-    Result updateBasicInfo(long id,UpdateUserBasicInfo user);
-    Result updatePassword(long id, UpdateUserPasswordRequest password);
-    ResultData<List<User>> getAll();
-    ResultData<User> getById(long id);
+    Result add(UserRequest user, String token);
+    Result delete(long id, String token);
+    Result updateBasicInfo(long id,UpdateUserBasicInfo user, String token);
+    Result updatePassword(long id, UpdateUserPasswordRequest password, String token);
+    ResultData<List<User>> getAll(String token);
+    ResultData<User> getById(long id, String token);
     ResultData<String> login(String email, String password);
     Result verifyToken(String token);
+    ResultData<User> getByEmail(String email);
 }

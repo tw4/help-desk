@@ -59,4 +59,9 @@ public class UserTitleManager implements UserTitleServices {
         }
         return new Result(true, "user title deleted");
     }
+
+    @Override
+    public UserTitle getByTitle(String title) {
+        return userTitleDAO.getByTitle(title);
+    }
 }

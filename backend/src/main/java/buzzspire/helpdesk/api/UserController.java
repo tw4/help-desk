@@ -23,39 +23,39 @@ public class UserController {
 
     @Operation(summary = "Add User")
     @PostMapping("/")
-    public Result add(@RequestBody UserRequest user) {
-        return userServices.add(user);
+    public Result add(@RequestBody UserRequest user, @RequestHeader String token) {
+        return userServices.add(user, token);
     }
 
     @Operation(summary = "Get All Users")
     @GetMapping("/")
-    public ResultData<List<User>> getAll() {
-        return userServices.getAll();
+    public ResultData<List<User>> getAll(@RequestHeader String token) {
+        return userServices.getAll(token);
     }
 
     @Operation(summary = "Delete User")
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable long id) {
-        return userServices.delete(id);
+    public Result delete(@PathVariable long id, @RequestHeader String token) {
+        return userServices.delete(id, token);
     }
 
 
     @Operation(summary = "Update User Basic Info")
     @PutMapping("/{id}")
-    public Result updateBasicInfo(@PathVariable long id,@RequestBody UpdateUserBasicInfo user) {
-        return userServices.updateBasicInfo(id,user);
+    public Result updateBasicInfo(@PathVariable long id,@RequestBody UpdateUserBasicInfo user, @RequestHeader String token) {
+        return userServices.updateBasicInfo(id,user, token);
 
     }
 
     @Operation(summary = "Update User Password")
     @PutMapping("/{id}/password")
-    public Result updatePassword(@PathVariable long id,@RequestBody UpdateUserPasswordRequest user) {
-        return userServices.updatePassword(id,user);
+    public Result updatePassword(@PathVariable long id,@RequestBody UpdateUserPasswordRequest user, @RequestHeader String token) {
+        return userServices.updatePassword(id,user, token);
     }
 
     @Operation(summary = "Get User By Id")
     @GetMapping("/{id}")
-    public ResultData<User> getById(@PathVariable Long id) {
-        return userServices.getById(id);
+    public ResultData<User> getById(@PathVariable Long id, @RequestHeader String token) {
+        return userServices.getById(id, token);
     }
 }
