@@ -7,6 +7,7 @@ import buzzspire.helpdesk.dataAccess.abstracts.UserDAO;
 import buzzspire.helpdesk.dto.request.user.UpdateUserBasicInfo;
 import buzzspire.helpdesk.dto.request.user.UpdateUserPasswordRequest;
 import buzzspire.helpdesk.dto.request.user.UserRequest;
+import buzzspire.helpdesk.entities.concreates.RoleEnum;
 import buzzspire.helpdesk.entities.concreates.User;
 import buzzspire.helpdesk.security.JwtTokenProvider;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,12 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result add(UserRequest user,String token) {
+    public Result add(UserRequest user, String token) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(!role.equals(RoleEnum.ADMIN.toString())){
+            return new Result(false, "You are not authorized");
+        }
+
         User newUser = User.builder()
                 .name(user.getName())
                 .surname(user.getSurname())
@@ -43,6 +49,11 @@ public class UserManager implements UserServices {
 
     @Override
     public Result delete(long id, String token) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(!role.equals(RoleEnum.ADMIN.toString())){
+            return new Result(false, "You are not authorized");
+        }
+
         try {
             userDAO.delete(userDAO.getUserById(id));
         } catch (Exception e) {
@@ -52,7 +63,8 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result updateBasicInfo(long id,UpdateUserBasicInfo user, String token) {
+    public Result updateBasicInfo(UpdateUserBasicInfo user, String token) {
+        long id = jwtTokenProvider.getIdFromToken(token);
         User newUser = userDAO.getUserById(id);
         newUser.setName(user.getName());
         newUser.setSurname(user.getSurname());
@@ -68,7 +80,8 @@ public class UserManager implements UserServices {
     }
 
     @Override
-    public Result updatePassword(long id, UpdateUserPasswordRequest request, String token) {
+    public Result updatePassword(UpdateUserPasswordRequest request, String token) {
+        long id = jwtTokenProvider.getIdFromToken(token);
         User newUser = userDAO.getUserById(id);
         newUser.setPassword(request.getPassword());
         try {
@@ -81,11 +94,19 @@ public class UserManager implements UserServices {
 
     @Override
     public ResultData<List<User>> getAll(String token) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(!role.equals(RoleEnum.ADMIN.toString()) && !role.equals(RoleEnum.SUPPORT.toString())){
+            return new ResultData<>(null, "You are not authorized", false);
+        }
         return new ResultData<>(userDAO.findAll(), "All user list",true);
     }
 
     @Override
     public ResultData<User> getById(long id, String token) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(!role.equals(RoleEnum.ADMIN.toString()) && !role.equals(RoleEnum.SUPPORT.toString())){
+            return new ResultData<>(null, "You are not authorized", false);
+        }
         return new ResultData<>(userDAO.getUserById(id), "User", true);
     }
 

@@ -15,6 +15,7 @@ public class JwtTokenProvider {
         return JWT.create()
                 .withSubject(user.getEmail())
                 .withClaim("id", user.getId())
+                .withClaim("role", user.getRole().name())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 864000000))
                 .sign(Algorithm.HMAC256(SECRET_KEY));
     }
@@ -32,6 +33,14 @@ public class JwtTokenProvider {
                 .verify(token)
                 .getClaim("id")
                 .asLong();
+    }
+
+    public String getRoleFromToken(String token) {
+        return JWT.require(Algorithm.HMAC256(SECRET_KEY))
+                .build()
+                .verify(token)
+                .getClaim("role")
+                .asString();
     }
 
     public boolean validateToken(String token) {

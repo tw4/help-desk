@@ -42,15 +42,15 @@ public class UserController {
 
     @Operation(summary = "Update User Basic Info")
     @PutMapping("/{id}")
-    public Result updateBasicInfo(@PathVariable long id,@RequestBody UpdateUserBasicInfo user, @RequestHeader String token) {
-        return userServices.updateBasicInfo(id,user, token);
+    public Result updateBasicInfo(@RequestBody UpdateUserBasicInfo user, @RequestHeader String token) {
+        return userServices.updateBasicInfo(user, token);
 
     }
 
     @Operation(summary = "Update User Password")
     @PutMapping("/{id}/password")
-    public Result updatePassword(@PathVariable long id,@RequestBody UpdateUserPasswordRequest user, @RequestHeader String token) {
-        return userServices.updatePassword(id,user, token);
+    public Result updatePassword(@RequestBody UpdateUserPasswordRequest user, @RequestHeader String token) {
+        return userServices.updatePassword(user, token);
     }
 
     @Operation(summary = "Get User By Id")
