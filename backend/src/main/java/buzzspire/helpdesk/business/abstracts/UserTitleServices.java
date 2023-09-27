@@ -11,4 +11,5 @@ public interface UserTitleServices {
     Result add(String title);
     Result update(long id, String title);
     Result delete(long id);
+    UserTitle getByTitle(String title);
 }

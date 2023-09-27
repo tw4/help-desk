@@ -20,8 +20,7 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    @ManyToOne
-    private UserRole role;
+    private RoleEnum role;
     @ManyToOne
     private UserTitle title;
 }
