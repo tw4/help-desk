@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <main className="max-w[1440px] h-[100vh]  flex flex-row items-center justify-center">
-      {!useAuth() ? (
+      {useAuth() ? (
         <div className="flex flex-col items-center space-x-4 space-y-2">
           <Skeleton className="h-12 w-12" />
           <div className="space-y-2">
