@@ -17,9 +17,19 @@ export const useAuth = () => {
       })
       .then((res) => {
         setIsAuth(res.data.success);
+        if (!res.data.success) {
+          localStorage.removeItem("token");
+        }
+
+        if (res.data.success && window.location.pathname === "/") {
+          window.location.href = "/dashboard";
+        }
+        if (!res.data.success && window.location.pathname !== "/") {
+          window.location.href = "/";
+        }
       });
   }, []);
 
   // Return isAuth state
-  return { isAuth };
+  return isAuth;
 };

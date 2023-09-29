@@ -20,15 +20,12 @@ const formSchema = z.object({
 
 const Home = () => {
   // check if user is authenticated
-  const { isAuth } = useAuth();
 
   // error state
   const [error, setError] = useState<string>("");
 
   // redirect to dashboard if user is authenticated
-  if (isAuth) {
-    window.location.href = "/dashboard";
-  }
+  useAuth();
 
   // form hook
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,7 +51,7 @@ const Home = () => {
 
   return (
     <main className="max-w[1440px] h-[100vh]  flex flex-row items-center justify-center">
-      {isAuth ? (
+      {!useAuth() ? (
         <div className="flex flex-col items-center space-x-4 space-y-2">
           <Skeleton className="h-12 w-12" />
           <div className="space-y-2">
