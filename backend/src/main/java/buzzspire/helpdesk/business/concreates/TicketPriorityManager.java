@@ -11,17 +11,22 @@ import java.util.List;
 
 @Service
 public class TicketPriorityManager implements TicketPriorityServices {
+
+    // this filed injection
     private TicketPriorityDAO ticketPriorityDAO;
 
+    // constructor injection
     public TicketPriorityManager(TicketPriorityDAO ticketPriorityDAO) {
         this.ticketPriorityDAO = ticketPriorityDAO;
     }
 
+    // this method is used for get all ticket
     @Override
     public ResultData<List<TicketPriority>> getAll() {
         return new ResultData<>(this.ticketPriorityDAO.findAll(), "Ticket priority list", true);
     }
 
+    // this method is used for add ticket
     @Override
     public Result add(String priority) {
         try{
@@ -33,6 +38,7 @@ public class TicketPriorityManager implements TicketPriorityServices {
         return new Result(true, "Ticket priority added");
     }
 
+    // this method is used for delete ticket
     @Override
     public Result delete(long id) {
         return null;

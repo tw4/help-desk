@@ -15,12 +15,16 @@ import java.util.List;
 @Service
 public class TicketManager implements TicketServices {
 
+    // this field injection
     private final TicketDAO ticketDAO;
 
+    // constructor injection
     public TicketManager(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
     }
 
+
+    // this method is used to add a ticket
     @Override
     public Result addTicket(TicketRequest ticket) {
         try {
@@ -38,6 +42,7 @@ public class TicketManager implements TicketServices {
         return new Result(true, "Ticket added");
     }
 
+    // this method is used to delete a ticket
     @Override
     public Result deleteTicket(long id) {
         try {
@@ -48,21 +53,25 @@ public class TicketManager implements TicketServices {
         return new Result(true, "Ticket deleted");
     }
 
+    // this method is used get all tickets
     @Override
     public ResultData<List<Ticket>> getAllTicket() {
         return new ResultData<>(ticketDAO.findAll(), "Ticket list", true);
     }
 
+    // this method is used to get ticket by id
     @Override
     public ResultData<Ticket> getTicketById(long id) {
         return new ResultData<>(ticketDAO.findById(id).get(), "Ticket found", true);
     }
 
+    // this method is used to get ticket by user id
     @Override
     public ResultData<List<Ticket>> getTicketByUserId(long id) {
         return new ResultData<>(ticketDAO.findAllByUserId(id), "Ticket list", true);
     }
 
+    // this method is used to update a ticket assignee
     @Override
     public Result addTicketAssignee(long ticketId, long assigneeId) {
         Ticket newTicket = ticketDAO.findById(ticketId).get();
@@ -78,6 +87,7 @@ public class TicketManager implements TicketServices {
         return new Result(true, "Ticket assignee added");
     }
 
+    // this method is used to remove a ticket assignee
     @Override
     public Result removeTickerAssignee(long ticketId) {
         Ticket newTicket = ticketDAO.findById(ticketId).get();

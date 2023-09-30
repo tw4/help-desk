@@ -14,18 +14,22 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Auth APIs")
 public class AuthController {
 
+    // this is a field injection
     private final UserServices userServices;
 
+    // this constructor is a dependency injection
     public AuthController(UserServices userServices) {
         this.userServices = userServices;
     }
 
+    // this method login user and return token
     @Operation(summary = "Login")
     @PostMapping("/")
     public ResultData<String> login(@RequestBody AuthLoginRequest request) {
         return userServices.login(request.getEmail(), request.getPassword());
     }
 
+    // this method verify token and return result
     @Operation(summary = "Verify Token")
     @GetMapping("/")
     public Result verifyToken(@RequestHeader String token) {

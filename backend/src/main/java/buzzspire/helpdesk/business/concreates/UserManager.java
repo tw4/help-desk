@@ -16,14 +16,18 @@ import java.util.List;
 
 @Service
 public class UserManager implements UserServices {
+
+    // filed injection
     private final UserDAO userDAO;
     private final JwtTokenProvider jwtTokenProvider;
 
+    // constructor injection
     public UserManager(UserDAO userDAO, JwtTokenProvider jwtTokenProvider) {
         this.userDAO = userDAO;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    // this method used for add new user
     @Override
     public Result add(UserRequest user, String token) {
         String role = jwtTokenProvider.getRoleFromToken(token);
@@ -47,6 +51,7 @@ public class UserManager implements UserServices {
         return new Result(true, "User added");
     }
 
+    // this method used for delete user
     @Override
     public Result delete(long id, String token) {
         String role = jwtTokenProvider.getRoleFromToken(token);
@@ -62,6 +67,7 @@ public class UserManager implements UserServices {
         return new Result(true, "User deleted");
     }
 
+    // this method used for update user basic info
     @Override
     public Result updateBasicInfo(UpdateUserBasicInfo user, String token) {
         long id = jwtTokenProvider.getIdFromToken(token);
@@ -79,6 +85,7 @@ public class UserManager implements UserServices {
         return new Result(true, "User updated");
     }
 
+    // this method used for update user password
     @Override
     public Result updatePassword(UpdateUserPasswordRequest request, String token) {
         long id = jwtTokenProvider.getIdFromToken(token);
@@ -92,6 +99,7 @@ public class UserManager implements UserServices {
         return new Result(true, "User updated");
     }
 
+    // this method used for get all user
     @Override
     public ResultData<List<User>> getAll(String token) {
         String role = jwtTokenProvider.getRoleFromToken(token);
@@ -101,6 +109,7 @@ public class UserManager implements UserServices {
         return new ResultData<>(userDAO.findAll(), "All user list",true);
     }
 
+    // this method used for get user by id
     @Override
     public ResultData<User> getById(long id, String token) {
         String role = jwtTokenProvider.getRoleFromToken(token);
@@ -110,6 +119,7 @@ public class UserManager implements UserServices {
         return new ResultData<>(userDAO.getUserById(id), "User", true);
     }
 
+    // this method used for login
     @Override
     public ResultData<String> login(String email, String password) {
         User user = userDAO.findByEmailAndPassword(email, password);
@@ -120,6 +130,7 @@ public class UserManager implements UserServices {
         return new ResultData<>(token, "Login successful", true);
     }
 
+    // this method used for verify token
     @Override
     public Result verifyToken(String token) {
         if(jwtTokenProvider.validateToken(token)){
@@ -128,11 +139,13 @@ public class UserManager implements UserServices {
         return new Result(false, "Token is not valid");
     }
 
+    // this method used for get user by email
     @Override
     public ResultData<User> getByEmail(String email) {
         return new ResultData<>(userDAO.findByEmail(email), "User", true);
     }
 
+    // this method used for get my info
     @Override
     public ResultData<User> getMyInfo(String token) {
         long id = jwtTokenProvider.getIdFromToken(token);

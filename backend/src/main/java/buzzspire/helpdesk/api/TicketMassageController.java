@@ -16,30 +16,37 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/massages")
 public class TicketMassageController {
+
+    // this is a field injection
    private final TicketMassageManager ticketMassageManager;
 
+    // this is a constructor injection
     public TicketMassageController(TicketMassageManager ticketMassageManager) {
         this.ticketMassageManager = ticketMassageManager;
     }
+
+    // this method is a get method and it is return all ticket massage
     @Operation(summary = "Get all Ticket Massages")
     @GetMapping("/")
     public ResultData<List<TicketMassage>> getAll() {
         return ticketMassageManager.getAll();
     }
 
+    // this method is a post method and it is add ticket massage
     @Operation(summary = "Add Ticket Massage")
     @PostMapping("/")
     public Result add(@RequestBody TicketMassageRequest TicketMessage) {
         return ticketMassageManager.add(TicketMessage);
     }
 
+    // this method is a delete method and it is delete ticket massage by id
     @Operation(summary = "Delete Ticket Massage")
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable long id) {
         return ticketMassageManager.delete(id);
     }
 
-
+    // this method is a get method and it is return ticket massage by id
     @Operation(summary = "Get all Ticket Massages by massage id")
     @GetMapping("/{id}")
     public ResultData<TicketMassage> getById(@PathVariable long id) {

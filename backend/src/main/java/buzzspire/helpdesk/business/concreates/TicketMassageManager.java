@@ -14,17 +14,22 @@ import java.util.List;
 
 @Service
 public class TicketMassageManager implements TicketMassageServices {
+
+    // this field injection
     private final TicketMassageDAO ticketMassageDAO;
 
+    // constructor injection
     public TicketMassageManager(TicketMassageDAO ticketMassageDAO) {
         this.ticketMassageDAO = ticketMassageDAO;
     }
 
+    // this method is used to get all ticket messages
     @Override
     public ResultData<List<TicketMassage>> getAll() {
         return new ResultData<>(ticketMassageDAO.findAll(), "Ticket Messages listed", true);
     }
 
+    // this method is used to add a ticket message
     @Override
     public Result add(TicketMassageRequest TicketMessage) {
         TicketMassage ticketMassage = TicketMassage.builder()
@@ -42,6 +47,7 @@ public class TicketMassageManager implements TicketMassageServices {
         return new Result(true, "Ticket Message added");
     }
 
+    // this method is used to delete a ticket message
     @Override
     public Result delete(long id) {
         try {
@@ -52,6 +58,7 @@ public class TicketMassageManager implements TicketMassageServices {
         return new Result(true, "Ticket Message deleted");
     }
 
+    // this method is used to get a ticket message by id
     @Override
     public ResultData<TicketMassage> getById(long id) {
         return new ResultData<>(ticketMassageDAO.findById(id).orElse(null), "Ticket Message listed", true);}
