@@ -132,4 +132,10 @@ public class UserManager implements UserServices {
     public ResultData<User> getByEmail(String email) {
         return new ResultData<>(userDAO.findByEmail(email), "User", true);
     }
+
+    @Override
+    public ResultData<User> getMyInfo(String token) {
+        long id = jwtTokenProvider.getIdFromToken(token);
+        return new ResultData<>(userDAO.getUserById(id), "User", true);
+    }
 }
