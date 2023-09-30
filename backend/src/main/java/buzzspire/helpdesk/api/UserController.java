@@ -58,4 +58,10 @@ public class UserController {
     public ResultData<User> getById(@PathVariable Long id, @RequestHeader String token) {
         return userServices.getById(id, token);
     }
+
+    @Operation
+    @GetMapping("/me")
+    public ResultData<User> getMyInfo(@RequestHeader String token) {
+        return userServices.getMyInfo(token);
+    }
 }
