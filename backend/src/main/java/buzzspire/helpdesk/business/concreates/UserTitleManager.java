@@ -12,17 +12,21 @@ import java.util.List;
 @Service
 public class UserTitleManager implements UserTitleServices {
 
+    // filed injection
     private final UserTitleDAO userTitleDAO;
 
+    // constructor injection
     public UserTitleManager(UserTitleDAO userTitleDAO) {
         this.userTitleDAO = userTitleDAO;
     }
 
+    // this method is used for get all user title
     @Override
     public ResultData<List<UserTitle>> getAll() {
         return new ResultData<>(userTitleDAO.findAll(), "user title lis", true);
     }
 
+    // this method is used for add new user title
     @Override
     public Result add(String title) {
         try {
@@ -35,6 +39,7 @@ public class UserTitleManager implements UserTitleServices {
         return new Result(true, "user title added");
     }
 
+    // this method is used for update user title
     @Override
     public Result update(long id, String title) {
         UserTitle userTitle = userTitleDAO.findById(id).get();
@@ -49,6 +54,7 @@ public class UserTitleManager implements UserTitleServices {
         return new Result(true, "user title updated");
     }
 
+    // this method is used for delete user title
     @Override
     public Result delete(long id) {
         try {
@@ -60,6 +66,7 @@ public class UserTitleManager implements UserTitleServices {
         return new Result(true, "user title deleted");
     }
 
+    // this method is used for get user title by id
     @Override
     public UserTitle getByTitle(String title) {
         return userTitleDAO.getByTitle(title);

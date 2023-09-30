@@ -16,25 +16,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/priority")
 public class TicketPriorityController {
+
+    // this is a field injection
     private final TicketPriorityServices ticketPriorityServices;
 
+    // this is a constructor injection
     public TicketPriorityController(TicketPriorityServices ticketPriorityServices) {
         this.ticketPriorityServices = ticketPriorityServices;
     }
 
-
+    // this method is used to get all ticket
     @Operation(summary = "Get all ticket priorities")
     @GetMapping("/")
     public ResultData<List<TicketPriority>> getAll() {
         return ticketPriorityServices.getAll();
     }
 
+    // this method is used add ticket
     @Operation(summary = "Add ticket priority")
     @PostMapping("/")
     public Result add(@RequestBody TicketPriorityRequest request) {
         return ticketPriorityServices.add(request.getPriority());
     }
 
+    // this method is used  delete ticket
     @Operation(summary = "Delete ticket priority")
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable long id) {

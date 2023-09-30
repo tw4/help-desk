@@ -11,17 +11,21 @@ import java.util.List;
 
 @Service
 public class TicketStatusManager implements TicketStatusServices {
+    // filed injection
     private final TicketStatusDAO ticketStatusDAO;
 
+    // constructor injection
     public TicketStatusManager(TicketStatusDAO ticketStatusDAO) {
         this.ticketStatusDAO = ticketStatusDAO;
     }
 
+    // this method is used to get all ticket status
     @Override
     public ResultData<List<TicketStatus>> getAll() {
         return new ResultData<>(this.ticketStatusDAO.findAll(), "ticket status list", true);
     }
 
+    // this method is used to add ticket status
     @Override
     public Result add(String status) {
         try {
@@ -32,6 +36,7 @@ public class TicketStatusManager implements TicketStatusServices {
         return new Result(true, "Ticket Status Added");
     }
 
+    // this method is used to delete ticket status
     @Override
     public Result delete(long id) {
         try {

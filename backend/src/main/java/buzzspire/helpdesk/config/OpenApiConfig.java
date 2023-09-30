@@ -8,7 +8,7 @@ import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
 public class OpenApiConfig {
-
+    // this is the configuration for the OpenAPI documentation
     @Bean(name = "usersMicroserviceOpenAPI")
     public OpenAPI usersMicroserviceOpenAPI() {
         return new OpenAPI()
