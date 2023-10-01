@@ -7,6 +7,7 @@ export enum UserEndpoints {
   UpdateUserPassword = API_DOMAIN + "/api/users/{id}/password", // Update User Password
   GetAllUsers = API_DOMAIN + "/api/users/", // Get All Users
   AddUser = API_DOMAIN + "/api/users/", // Add User
+  GetMe = API_DOMAIN + "/api/users/me", // Get Me
 }
 
 export enum UserTitleEndpoints {
