@@ -4,6 +4,8 @@ import { getUser } from "@/api/user";
 import { addUser } from "@/store/features/user/userSlice";
 import MainLayout from "@/components/layout/MainLayout";
 import { useAuth } from "@/hook/Auth";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   // check auth
@@ -25,7 +27,23 @@ const Dashboard = () => {
       });
   }, [dispatch]); // Include dispatch in the dependency array
 
-  return <MainLayout></MainLayout>;
+  return (
+    <MainLayout>
+      <div className="p-2">
+        <div className="flex flex-row justify-between mt-2">
+          <div className="flex flex-row justify-between space-x-3">
+            <Input
+              className="w-56"
+              type="text"
+              placeholder="search ticket title"
+            />
+            <Button>Search</Button>
+          </div>
+          <Button>New Ticket</Button>
+        </div>
+      </div>
+    </MainLayout>
+  );
 };
 
 export default Dashboard;
