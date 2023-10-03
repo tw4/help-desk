@@ -1,4 +1,4 @@
-import { Title } from "./titleType";
+import { UserTitle } from "./UserTitleType";
 
 export type User = {
   id: number;
@@ -7,5 +7,5 @@ export type User = {
   email: string;
   password: string;
   role: string;
-  title: Title;
+  title: UserTitle;
 };
