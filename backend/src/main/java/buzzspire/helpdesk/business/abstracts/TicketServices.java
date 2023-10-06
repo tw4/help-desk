@@ -8,11 +8,11 @@ import buzzspire.helpdesk.entities.concreates.Ticket;
 import java.util.List;
 
 public interface TicketServices {
-    Result addTicket(TicketRequest ticket);
-    Result deleteTicket(long id);
+    Result addTicket(TicketRequest ticket, String token);
+    Result deleteTicket(long id, String token);
     ResultData<List<Ticket>> getAllTicket();
     ResultData<Ticket> getTicketById(long id);
     ResultData<List<Ticket>> getTicketByUserId(long id);
-    Result addTicketAssignee(long ticketId, long assigneeId);
-    Result removeTickerAssignee(long ticketId);
+    Result addTicketAssignee(long ticketId, long assigneeId, String token);
+    Result removeTickerAssignee(long ticketId, String token);
 }
