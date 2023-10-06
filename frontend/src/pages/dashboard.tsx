@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TicketDialog from "@/components/TicketDialog/TicketDialog";
 
 const Dashboard = () => {
   // check auth
@@ -63,7 +64,7 @@ const Dashboard = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <Button>New Ticket</Button>
+          <TicketDialog />
         </div>
         <div className="mt-2">
           <TicketList />
