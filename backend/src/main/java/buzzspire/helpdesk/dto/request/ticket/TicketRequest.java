@@ -15,8 +15,6 @@ import java.util.Date;
 public class TicketRequest {
     private String title;
     private String description;
-    private TicketStatus status;
+    private long status;
     private long priority;
-    private Date date;
-    private long user;
 }
