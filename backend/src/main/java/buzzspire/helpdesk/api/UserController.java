@@ -76,4 +76,11 @@ public class UserController {
     public ResultData<User> getMyInfo(@RequestHeader String token) {
         return userServices.getMyInfo(token);
     }
+
+    // this method get all supporters
+    @Operation(summary = "get all supporters")
+    @GetMapping("/supporters")
+    public ResultData<List<User>> getAllSupporters(@RequestHeader String token) {
+        return userServices.getAllSupporters(token);
+    }
 }
