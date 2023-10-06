@@ -12,6 +12,7 @@ import buzzspire.helpdesk.entities.concreates.User;
 import buzzspire.helpdesk.security.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.List;
 
 @Service
@@ -150,5 +151,16 @@ public class UserManager implements UserServices {
     public ResultData<User> getMyInfo(String token) {
         long id = jwtTokenProvider.getIdFromToken(token);
         return new ResultData<>(userDAO.getUserById(id), "User", true);
+    }
+
+    // this method used for get all supporter
+    @Override
+    public ResultData<List<User>> getAllSupporters(String token) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(role.equals(RoleEnum.ADMIN.toString()) || role.equals(RoleEnum.SUPPORT.toString())){
+            return new ResultData<>(userDAO.findAllByRole(RoleEnum.SUPPORT), "All supporter list", true);
+        } else {
+            return new ResultData<>(null, "You are not authorized", false);
+        }
     }
 }

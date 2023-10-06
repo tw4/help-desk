@@ -20,4 +20,5 @@ public interface UserServices {
     Result verifyToken(String token);
     ResultData<User> getByEmail(String email);
     ResultData<User> getMyInfo(String token);
+    ResultData<List<User>> getAllSupporters(String token);
 }
