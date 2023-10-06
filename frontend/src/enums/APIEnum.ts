@@ -1,4 +1,4 @@
-const API_DOMAIN = "http://localhost:8080";
+export const API_DOMAIN = "http://localhost:8080";
 
 export enum UserEndpoints {
   GetUserById = API_DOMAIN + "/api/users/{id}", // Get User By Id
@@ -8,6 +8,7 @@ export enum UserEndpoints {
   GetAllUsers = API_DOMAIN + "/api/users/", // Get All Users
   AddUser = API_DOMAIN + "/api/users/", // Add User
   GetMe = API_DOMAIN + "/api/users/me", // Get Me
+  getAllSupporters = API_DOMAIN + "/api/users/supporters", // Get All Supporters
 }
 
 export enum UserTitleEndpoints {
@@ -23,7 +24,7 @@ export enum TicketEndpoints {
   GetAllTickets = API_DOMAIN + "/api/ticket/", // Get All Tickets
   AddTicket = API_DOMAIN + "/api/ticket/", // Add Ticket
   GetTicketById = API_DOMAIN + "/api/ticket/{id}", // Get Ticket By Id
-  DeleteTicketById = API_DOMAIN + "/api/ticket/{id}", // Delete Ticket By Id
+  DeleteTicketById = API_DOMAIN + "/api/ticket/", // Delete Ticket By Id /api/ticket/{id}
   GetTicketsByUserId = API_DOMAIN + "/api/ticket/user/{id}", // Get Ticket By User Id
   RemoveTicketAssignee = API_DOMAIN + "/api/ticket/{ticketId}/assignee/", // Remove Ticket Assignee
 }

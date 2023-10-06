@@ -1,4 +1,4 @@
-export type Title = {
+export type UserTitle = {
   id: number;
   title: string;
 };
