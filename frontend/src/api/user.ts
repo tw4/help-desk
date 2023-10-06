@@ -17,3 +17,18 @@ export const getUser = (token: string) => {
     });
   return res;
 };
+
+export const getAllSupporters = (token: string) => {
+  const res = axios
+    .get(UserEndpoints.getAllSupporters, {
+      headers: { token: localStorage.getItem("token") },
+    })
+    .then((res) => {
+      if (res.data.success) {
+        return res.data.data;
+      } else {
+        return null;
+      }
+    });
+  return res;
+};
