@@ -1,7 +1,7 @@
 import { API_DOMAIN, TicketEndpoints, UserEndpoints } from "@/enums/APIEnum";
 import { Ticket } from "@/types/TicketType";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { TicketTable } from "./TicketTable";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
@@ -21,17 +21,27 @@ import { useAppSelector } from "@/hook/Redux";
 import { User } from "@/types/userType";
 import { getAllSupporters } from "@/api/user";
 import { getAllTickets } from "@/api/ticket";
+import { SearchTypeEnum } from "@/enums/SearchTypeEnum";
+import { type } from "os";
 
-const TicketList = () => {
+interface TicketListProps {
+  searchType: SearchTypeEnum;
+  searchValue: String;
+}
+
+const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
   // state
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [supporters, setSupporters] = useState<User[]>([]);
+  const [searchResult, setSearchResult] = useState<Ticket[]>([]);
+
   // redux state
   const user: User = useAppSelector((state) => state.user.value as User);
 
   useEffect(() => {
     getAllTickets(localStorage.getItem("token") || "").then((res) => {
       setTickets(res);
+      setSearchResult(res);
     });
     getAllSupporters(localStorage.getItem("token") || "").then((res) => {
       setSupporters(res);
@@ -91,6 +101,39 @@ const TicketList = () => {
         }
       });
   };
+
+  // search ticket
+  useEffect(() => {
+    const result = tickets.filter((ticket) => {
+      switch (searchType) {
+        case SearchTypeEnum.TITLE:
+          return ticket.title.toLowerCase().includes(searchValue.toLowerCase());
+        case SearchTypeEnum.DESCRIPTION:
+          return ticket.description
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+        case SearchTypeEnum.STATUS:
+          return ticket.status.status
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+        case SearchTypeEnum.PRIORITY:
+          return ticket.priority.priority
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+        case SearchTypeEnum.ID:
+          return ticket.id.toString().includes(searchValue.toString());
+        case SearchTypeEnum.ASSIGNED_TO:
+          return ticket.assignedTo?.email
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+        default:
+          return tickets;
+      }
+    });
+    setSearchResult(result);
+  }, [searchValue, searchType]);
+
+  // search ticket
 
   // this is the table columns
   const colums: ColumnDef<Ticket>[] = [
@@ -189,7 +232,7 @@ const TicketList = () => {
 
   return (
     <div>
-      <TicketTable columns={colums} data={tickets} />
+      <TicketTable columns={colums} data={searchResult} />
     </div>
   );
 };
