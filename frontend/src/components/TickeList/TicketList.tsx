@@ -22,7 +22,7 @@ import { User } from "@/types/userType";
 import { getAllSupporters } from "@/api/user";
 import { getAllTickets } from "@/api/ticket";
 import { SearchTypeEnum } from "@/enums/SearchTypeEnum";
-import { type } from "os";
+import { useRouter } from "next/router";
 
 interface TicketListProps {
   searchType: SearchTypeEnum;
@@ -30,6 +30,9 @@ interface TicketListProps {
 }
 
 const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
+  // router
+  const router = useRouter();
+
   // state
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [supporters, setSupporters] = useState<User[]>([]);
@@ -50,7 +53,7 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
 
   // gı to ticket details
   const goToTicketDetails = (id: string) => {
-    window.location.href = `/ticket/${id}`;
+    router.push(`/ticket/${id}`);
   };
 
   // delete ticket by id
