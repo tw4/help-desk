@@ -43,8 +43,8 @@ public class TicketController {
     // this method is a get method and it is return ticket by id
     @Operation(summary = "get Ticket By Id")
     @GetMapping("/{id}")
-    public ResultData<Ticket> getTicketById(@PathVariable long id) {
-        return ticketServices.getTicketById(id);
+    public ResultData<Ticket> getTicketById(@RequestHeader String token ,@PathVariable long id) {
+        return ticketServices.getTicketById(id,token);
     }
 
     // this method is a get method and it is return ticket by user id
