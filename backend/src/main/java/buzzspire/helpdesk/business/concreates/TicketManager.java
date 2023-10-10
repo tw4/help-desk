@@ -5,10 +5,7 @@ import buzzspire.helpdesk.core.utilities.result.Result;
 import buzzspire.helpdesk.core.utilities.result.ResultData;
 import buzzspire.helpdesk.dataAccess.abstracts.TicketDAO;
 import buzzspire.helpdesk.dto.request.ticket.TicketRequest;
-import buzzspire.helpdesk.entities.concreates.Ticket;
-import buzzspire.helpdesk.entities.concreates.TicketPriority;
-import buzzspire.helpdesk.entities.concreates.TicketStatus;
-import buzzspire.helpdesk.entities.concreates.User;
+import buzzspire.helpdesk.entities.concreates.*;
 import buzzspire.helpdesk.security.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
@@ -79,8 +76,22 @@ public class TicketManager implements TicketServices {
 
     // this method is used to get ticket by id
     @Override
-    public ResultData<Ticket> getTicketById(long id) {
-        return new ResultData<>(ticketDAO.findById(id).get(), "Ticket found", true);
+    public ResultData<Ticket> getTicketById(long id, String token) {
+        if (!jwtTokenProvider.validateToken(token)) {
+            return new ResultData<>(null, "Token is not valid", false);
+        }
+
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        Ticket ticket = ticketDAO.findById(id).get();
+
+        boolean isAuthorized = ticket.getUser().getId() == jwtTokenProvider.getIdFromToken(token)
+                || role.equals(RoleEnum.ADMIN.toString())
+                || role.equals(RoleEnum.SUPPORT.toString());
+
+        if (!isAuthorized) {
+            return new ResultData<>(null, "You are not authorized", false);
+        }
+        return new ResultData<>(ticket, "Ticket", true);
     }
 
     // this method is used to get ticket by user id
