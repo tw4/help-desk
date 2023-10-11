@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TicketMassageServices {
     ResultData<List<TicketMassage>> getAll();
-    Result add(TicketMassageRequest TicketMessage);
-    Result delete(long id);
+    Result add(TicketMassageRequest TicketMessage, String token);
+    Result delete(long id, String token);
     ResultData<TicketMassage> getById(long id);
 }

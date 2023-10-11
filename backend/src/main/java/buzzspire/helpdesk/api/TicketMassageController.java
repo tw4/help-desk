@@ -35,15 +35,15 @@ public class TicketMassageController {
     // this method is a post method and it is add ticket massage
     @Operation(summary = "Add Ticket Massage")
     @PostMapping("/")
-    public Result add(@RequestBody TicketMassageRequest TicketMessage) {
-        return ticketMassageManager.add(TicketMessage);
+    public Result add(@RequestHeader String token,@RequestBody TicketMassageRequest TicketMessage) {
+        return ticketMassageManager.add(TicketMessage, token);
     }
 
     // this method is a delete method and it is delete ticket massage by id
     @Operation(summary = "Delete Ticket Massage")
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable long id) {
-        return ticketMassageManager.delete(id);
+    public Result delete(@RequestHeader String token,@PathVariable long id) {
+        return ticketMassageManager.delete(id, token);
     }
 
     // this method is a get method and it is return ticket massage by id
