@@ -1,7 +1,6 @@
 package buzzspire.helpdesk.entities.concreates;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.Date;
 @Entity
 @Data
 @Builder
-public class TicketMassage {
+public class TicketMessage {
     @GeneratedValue(generator = "increment")
     @Id
     private long id;

@@ -1,14 +1,14 @@
 package buzzspire.helpdesk.business.concreates;
 
-import buzzspire.helpdesk.business.abstracts.TicketMassageServices;
+import buzzspire.helpdesk.business.abstracts.TicketMessageServices;
 import buzzspire.helpdesk.core.utilities.result.Result;
 import buzzspire.helpdesk.core.utilities.result.ResultData;
 import buzzspire.helpdesk.dataAccess.abstracts.TicketDAO;
-import buzzspire.helpdesk.dataAccess.abstracts.TicketMassageDAO;
-import buzzspire.helpdesk.dto.request.TicketMassage.TicketMassageRequest;
+import buzzspire.helpdesk.dataAccess.abstracts.TicketMessageDAO;
+import buzzspire.helpdesk.dto.request.TicketMessage.TicketMessageRequest;
 import buzzspire.helpdesk.entities.concreates.RoleEnum;
 import buzzspire.helpdesk.entities.concreates.Ticket;
-import buzzspire.helpdesk.entities.concreates.TicketMassage;
+import buzzspire.helpdesk.entities.concreates.TicketMessage;
 import buzzspire.helpdesk.entities.concreates.User;
 import buzzspire.helpdesk.security.JwtTokenProvider;
 import org.springframework.stereotype.Service;
@@ -17,28 +17,28 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TicketMassageManager implements TicketMassageServices {
+public class TicketMessageManager implements TicketMessageServices {
 
     // this field injection
-    private final TicketMassageDAO ticketMassageDAO;
+    private final TicketMessageDAO ticketMessageDAO;
     private final JwtTokenProvider jwtTokenProvider;
     private final TicketDAO ticketDAO;
     // constructor injection
-    public TicketMassageManager(TicketMassageDAO ticketMassageDAO, JwtTokenProvider jwtTokenProvider, TicketDAO ticketDAO){
-        this.ticketMassageDAO = ticketMassageDAO;
+    public TicketMessageManager(TicketMessageDAO ticketMessageDAO, JwtTokenProvider jwtTokenProvider, TicketDAO ticketDAO){
+        this.ticketMessageDAO = ticketMessageDAO;
         this.jwtTokenProvider = jwtTokenProvider;
         this.ticketDAO = ticketDAO;
     }
 
     // this method is used to get all ticket messages
     @Override
-    public ResultData<List<TicketMassage>> getAll() {
-        return new ResultData<>(ticketMassageDAO.findAll(), "Ticket Messages listed", true);
+    public ResultData<List<TicketMessage>> getAll() {
+        return new ResultData<>(ticketMessageDAO.findAll(), "Ticket Messages listed", true);
     }
 
     // this method is used to add a ticket message
     @Override
-    public Result add(TicketMassageRequest TicketMessage, String token) {
+    public Result add(TicketMessageRequest TicketMessage, String token) {
         if (!jwtTokenProvider.validateToken(token)){
             return new Result(false, "Token is not valid");
         }
@@ -59,7 +59,7 @@ public class TicketMassageManager implements TicketMassageServices {
             return new Result(false, "You are not authorized to add ticket message");
         }
 
-        TicketMassage ticketMassage = TicketMassage.builder()
+        buzzspire.helpdesk.entities.concreates.TicketMessage ticketMessage = buzzspire.helpdesk.entities.concreates.TicketMessage.builder()
                 .message(TicketMessage.getMessage())
                 .date(date)
                 .sender(User.builder().id(senderId).build())
@@ -67,7 +67,7 @@ public class TicketMassageManager implements TicketMassageServices {
                 .build();
 
         try {
-            ticketMassageDAO.save(ticketMassage);
+            ticketMessageDAO.save(ticketMessage);
         } catch (Exception e) {
             return new Result(false, "Ticket Message could not be added");
         }
@@ -79,12 +79,12 @@ public class TicketMassageManager implements TicketMassageServices {
     public Result delete(long id, String token) {
         long userId = jwtTokenProvider.getIdFromToken(token);
         String role = jwtTokenProvider.getRoleFromToken(token);
-        TicketMassage ticketMassage = ticketMassageDAO.findById(id).orElse(null);
-        if (ticketMassage == null){
+        TicketMessage ticketMessage = ticketMessageDAO.findById(id).orElse(null);
+        if (ticketMessage == null){
             return new Result(false, "Ticket Message could not be found");
         }
 
-        boolean isAuthorized = userId == ticketMassage.getSender().getId()
+        boolean isAuthorized = userId == ticketMessage.getSender().getId()
                 || role.equals(RoleEnum.ADMIN.toString())
                 || role.equals(RoleEnum.SUPPORT.toString());
 
@@ -93,7 +93,7 @@ public class TicketMassageManager implements TicketMassageServices {
         }
 
         try {
-            ticketMassageDAO.deleteById(id);
+            ticketMessageDAO.deleteById(id);
         } catch (Exception e) {
             return new Result(false, "Ticket Message could not be deleted");
         }
@@ -102,6 +102,6 @@ public class TicketMassageManager implements TicketMassageServices {
 
     // this method is used to get a ticket message by id
     @Override
-    public ResultData<TicketMassage> getById(long id) {
-        return new ResultData<>(ticketMassageDAO.findById(id).orElse(null), "Ticket Message listed", true);}
+    public ResultData<TicketMessage> getById(long id) {
+        return new ResultData<>(ticketMessageDAO.findById(id).orElse(null), "Ticket Message listed", true);}
 }

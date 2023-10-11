@@ -1,19 +1,16 @@
-package buzzspire.helpdesk.dto.request.TicketMassage;
+package buzzspire.helpdesk.dto.request.TicketMessage;
 
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
 @NotNull
-public class TicketMassageRequest {
+public class TicketMessageRequest {
     private String message;
     private long ticketId;
 }

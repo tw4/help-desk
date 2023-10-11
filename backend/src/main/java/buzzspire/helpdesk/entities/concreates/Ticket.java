@@ -28,6 +28,6 @@ public class Ticket {
     @ManyToOne
     private User assignedTo;
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
-    private List<TicketMassage> messages;
+    private List<TicketMessage> messages;
 
 }
