@@ -10,7 +10,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
     <main className="flex justify-center">
       <div className="max-w-[1440px] w-full">
         <Navbar />
-        {children}
+        <div className="p-2">{children}</div>
       </div>
     </main>
   );

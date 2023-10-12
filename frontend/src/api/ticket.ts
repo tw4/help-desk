@@ -11,3 +11,18 @@ export const getAllTickets = async (token: string) => {
   });
   return res;
 };
+
+export const getTicketById = async (token: string, id: string | string[]) => {
+  const res = axios
+    .get(TicketEndpoints.GetTicketById + id, {
+      headers: {
+        token: token,
+      },
+    })
+    .then((res) => {
+      if (res.data.success) {
+        return res.data.data;
+      }
+    });
+  return res;
+};
