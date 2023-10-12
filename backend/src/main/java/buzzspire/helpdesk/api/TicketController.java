@@ -29,8 +29,8 @@ public class TicketController {
     // this method is a get method and it is return all ticket
     @Operation(summary = "Get All Ticket")
     @GetMapping("/")
-    public ResultData<List<Ticket>> getTicket() {
-        return ticketServices.getAllTicket();
+    public ResultData<List<Ticket>> getTicket(@RequestHeader String token) {
+        return ticketServices.getAllTicket(token);
     }
 
     // this method is a post method and it is add ticket
