@@ -10,7 +10,7 @@ import java.util.List;
 public interface TicketServices {
     Result addTicket(TicketRequest ticket, String token);
     Result deleteTicket(long id, String token);
-    ResultData<List<Ticket>> getAllTicket();
+    ResultData<List<Ticket>> getAllTicket(String token);
     ResultData<Ticket> getTicketById(long id, String token);
     ResultData<List<Ticket>> getTicketByUserId(long id);
     Result addTicketAssignee(long ticketId, long assigneeId, String token);

@@ -70,8 +70,16 @@ public class TicketManager implements TicketServices {
 
     // this method is used get all tickets
     @Override
-    public ResultData<List<Ticket>> getAllTicket() {
-        return new ResultData<>(ticketDAO.findAll(), "Ticket list", true);
+    public ResultData<List<Ticket>> getAllTicket(String token) {
+        if (!jwtTokenProvider.validateToken(token)){
+            return new ResultData<>(null, "Token is not valid", false);
+        }
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(role.equals(RoleEnum.ADMIN.toString()) || role.equals(RoleEnum.SUPPORT.toString())){
+            return new ResultData<>(ticketDAO.findAll(), "Ticket list", true);
+        } else {
+            return new ResultData<>(ticketDAO.findAllByUserId(jwtTokenProvider.getIdFromToken(token)), "Ticket list", true);
+        }
     }
 
     // this method is used to get ticket by id
