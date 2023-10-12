@@ -23,7 +23,7 @@ export enum TicketEndpoints {
     "/api/ticket/{ticketId}/assignee/{assigneeId}", // Add Ticket Assignee
   GetAllTickets = API_DOMAIN + "/api/ticket/", // Get All Tickets
   AddTicket = API_DOMAIN + "/api/ticket/", // Add Ticket
-  GetTicketById = API_DOMAIN + "/api/ticket/{id}", // Get Ticket By Id
+  GetTicketById = API_DOMAIN + "/api/ticket/", // Get Ticket By Id
   DeleteTicketById = API_DOMAIN + "/api/ticket/", // Delete Ticket By Id /api/ticket/{id}
   GetTicketsByUserId = API_DOMAIN + "/api/ticket/user/{id}", // Get Ticket By User Id
   RemoveTicketAssignee = API_DOMAIN + "/api/ticket/{ticketId}/assignee/", // Remove Ticket Assignee
@@ -52,7 +52,7 @@ export enum TicketMassageEndpoints {
   GetAllTicketMassages = API_DOMAIN + "/api/massages/", // Get all Ticket Massages
   AddTicketMassage = API_DOMAIN + "/api/massages/", // Add Ticket Massage
   GetTicketMassagesById = API_DOMAIN + "/api/massages/{id}", // Get all Ticket Massages by massage id
-  DeleteTicketMassage = API_DOMAIN + "/api/massages/{id}", // Delete Ticket Massage
+  DeleteTicketMassage = API_DOMAIN + "/api/massages/", // Delete Ticket Massage
 }
 
 export enum AuthEndpoints {

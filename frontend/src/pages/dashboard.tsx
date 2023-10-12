@@ -54,65 +54,59 @@ const Dashboard = () => {
 
   return (
     <MainLayout>
-      <div className="p-2">
-        <div className="flex flex-row justify-between mt-2">
-          <div className="flex flex-row justify-between space-x-3">
-            {/* TODO:  If you select a search with status and priority 
+      <div className="flex flex-row justify-between mt-2">
+        <div className="flex flex-row justify-between space-x-3">
+          {/* TODO:  If you select a search with status and priority 
             in this section, a pop-up selection will be added and the 
             status and priority information retrieved via the API will 
             be shown and the search will be made accordingly.  */}
-            <Input
-              className="w-56"
-              type="text"
-              placeholder="search.."
-              onChange={handleSearch}
-            />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button>
-                  Search By {searchType}
-                  <ChevronDownIcon />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    onClick={() => handleSearchType(SearchTypeEnum.ID)}>
-                    Id
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => handleSearchType(SearchTypeEnum.TITLE)}>
-                    Title
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() =>
-                      handleSearchType(SearchTypeEnum.DESCRIPTION)
-                    }>
-                    Description
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => handleSearchType(SearchTypeEnum.STATUS)}>
-                    Status
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => handleSearchType(SearchTypeEnum.PRIORITY)}>
-                    Priority
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() =>
-                      handleSearchType(SearchTypeEnum.ASSIGNED_TO)
-                    }>
-                    Assigned To
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <TicketDialog />
+          <Input
+            className="w-56"
+            type="text"
+            placeholder="search.."
+            onChange={handleSearch}
+          />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button>
+                Search By {searchType}
+                <ChevronDownIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  onClick={() => handleSearchType(SearchTypeEnum.ID)}>
+                  Id
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSearchType(SearchTypeEnum.TITLE)}>
+                  Title
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSearchType(SearchTypeEnum.DESCRIPTION)}>
+                  Description
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSearchType(SearchTypeEnum.STATUS)}>
+                  Status
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSearchType(SearchTypeEnum.PRIORITY)}>
+                  Priority
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleSearchType(SearchTypeEnum.ASSIGNED_TO)}>
+                  Assigned To
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        <div className="mt-2">
-          <TicketList searchType={searchType} searchValue={searchValue} />
-        </div>
+        <TicketDialog />
+      </div>
+      <div className="mt-2">
+        <TicketList searchType={searchType} searchValue={searchValue} />
       </div>
     </MainLayout>
   );
