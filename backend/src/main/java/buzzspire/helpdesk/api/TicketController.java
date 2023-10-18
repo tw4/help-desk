@@ -29,7 +29,7 @@ public class TicketController {
     // this method is a get method and it is return all ticket
     @Operation(summary = "Get All Ticket")
     @GetMapping("/{page}/{size}")
-    public ResultData<List<Ticket>> getTicket(@RequestHeader int page, @RequestHeader int size ,@RequestHeader String token) {
+    public ResultData<List<Ticket>> getTicket(@PathVariable int page, @PathVariable int size ,@RequestHeader String token) {
         return ticketServices.getAllTicket(token,page,size);
     }
 
