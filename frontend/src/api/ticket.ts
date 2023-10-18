@@ -1,9 +1,9 @@
 import { TicketEndpoints } from "@/enums/APIEnum";
 import axios from "axios";
 
-export const getAllTickets = async (token: string) => {
+export const getAllTickets = async (token: string, page: number) => {
   const res = axios
-    .get(TicketEndpoints.GetAllTickets, {
+    .get(TicketEndpoints.GetAllTickets + `${page}/24`, {
       headers: {
         token: token,
       },

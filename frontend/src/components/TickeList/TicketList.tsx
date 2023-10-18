@@ -4,7 +4,11 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { TicketTable } from "./TicketTable";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DotsHorizontalIcon,
+} from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -37,19 +41,22 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [supporters, setSupporters] = useState<User[]>([]);
   const [searchResult, setSearchResult] = useState<Ticket[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // redux state
   const user: User = useAppSelector((state) => state.user.value as User);
 
   useEffect(() => {
-    getAllTickets(localStorage.getItem("token") || "").then((res) => {
-      setTickets(res);
-      setSearchResult(res);
-    });
+    getAllTickets(localStorage.getItem("token") || "", currentPage).then(
+      (res) => {
+        setTickets(res);
+        setSearchResult(res);
+      }
+    );
     getAllSupporters(localStorage.getItem("token") || "").then((res) => {
       setSupporters(res);
     });
-  }, []);
+  }, [currentPage]);
 
   // gı to ticket details
   const goToTicketDetails = (id: string) => {
@@ -103,6 +110,16 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
           window.location.reload();
         }
       });
+  };
+
+  // next page
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  // previous page
+  const previousPage = () => {
+    setCurrentPage(currentPage - 1);
   };
 
   // search ticket
@@ -236,6 +253,16 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
   return (
     <div>
       <TicketTable columns={colums} data={searchResult} />
+      <div className="w-full flex flex-row justify-between items-center">
+        <Button disabled={currentPage <= 1} onClick={previousPage}>
+          <ChevronLeftIcon />
+          Previous Page
+        </Button>
+        <Button disabled={tickets.length === 0} onClick={nextPage}>
+          Next Page
+          <ChevronRightIcon />
+        </Button>
+      </div>
     </div>
   );
 };
