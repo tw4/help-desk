@@ -7,8 +7,12 @@ import buzzspire.helpdesk.dataAccess.abstracts.TicketDAO;
 import buzzspire.helpdesk.dto.request.ticket.TicketRequest;
 import buzzspire.helpdesk.entities.concreates.*;
 import buzzspire.helpdesk.security.JwtTokenProvider;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -70,15 +74,19 @@ public class TicketManager implements TicketServices {
 
     // this method is used get all tickets
     @Override
-    public ResultData<List<Ticket>> getAllTicket(String token) {
+    public ResultData<List<Ticket>> getAllTicket(String token, int page, int size) {
         if (!jwtTokenProvider.validateToken(token)){
             return new ResultData<>(null, "Token is not valid", false);
         }
         String role = jwtTokenProvider.getRoleFromToken(token);
         if(role.equals(RoleEnum.ADMIN.toString()) || role.equals(RoleEnum.SUPPORT.toString())){
-            return new ResultData<>(ticketDAO.findAll(), "Ticket list", true);
+            PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("id"));
+            Page<Ticket> ticketPage = ticketDAO.findAll(pageRequest);
+            return new ResultData<>(ticketPage.getContent(), "Ticket list", true);
         } else {
-            return new ResultData<>(ticketDAO.findAllByUserId(jwtTokenProvider.getIdFromToken(token)), "Ticket list", true);
+            PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("id"));
+            Page<Ticket> ticketPage = ticketDAO.findAllByUserId(jwtTokenProvider.getIdFromToken(token), pageRequest);
+            return new ResultData<>(ticketPage.getContent(), "Ticket list", true);
         }
     }
 
@@ -104,8 +112,10 @@ public class TicketManager implements TicketServices {
 
     // this method is used to get ticket by user id
     @Override
-    public ResultData<List<Ticket>> getTicketByUserId(long id) {
-        return new ResultData<>(ticketDAO.findAllByUserId(id), "Ticket list", true);
+    public ResultData<List<Ticket>> getTicketByUserId(long id, int page , int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("id"));
+        Page<Ticket> ticketPage = ticketDAO.findAllByUserId(id, pageRequest);
+        return new ResultData<>(ticketPage.getContent(), "Ticket list", true);
     }
 
     // this method is used to update a ticket assignee

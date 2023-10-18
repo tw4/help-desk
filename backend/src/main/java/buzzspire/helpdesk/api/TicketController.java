@@ -28,9 +28,9 @@ public class TicketController {
 
     // this method is a get method and it is return all ticket
     @Operation(summary = "Get All Ticket")
-    @GetMapping("/")
-    public ResultData<List<Ticket>> getTicket(@RequestHeader String token) {
-        return ticketServices.getAllTicket(token);
+    @GetMapping("/{page}/{size}")
+    public ResultData<List<Ticket>> getTicket(@RequestHeader int page, @RequestHeader int size ,@RequestHeader String token) {
+        return ticketServices.getAllTicket(token,page,size);
     }
 
     // this method is a post method and it is add ticket
@@ -49,9 +49,9 @@ public class TicketController {
 
     // this method is a get method and it is return ticket by user id
     @Operation(summary = "get Ticket By User Id")
-    @GetMapping("/user/{id}")
-    public ResultData<List<Ticket>> getTicketByUserId(@PathVariable long id) {
-        return ticketServices.getTicketByUserId(id);
+    @GetMapping("/user/{id}/{page}/{size}")
+    public ResultData<List<Ticket>> getTicketByUserId(@PathVariable long id, @PathVariable int page, @PathVariable int size) {
+        return ticketServices.getTicketByUserId(id, page, size);
     }
 
     // this method is a delete method and it is delete ticket by id
