@@ -27,6 +27,7 @@ import { getAllSupporters } from "@/api/user";
 import { getAllTickets } from "@/api/ticket";
 import { SearchTypeEnum } from "@/enums/SearchTypeEnum";
 import { useRouter } from "next/router";
+import { Role } from "@/enums/Role";
 
 interface TicketListProps {
   searchType: SearchTypeEnum;
@@ -202,7 +203,7 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
                   onClick={() => goToTicketDetails(row.row.getValue("id"))}>
                   Details
                 </DropdownMenuItem>
-                {user.role === "ADMIN" && (
+                {user.role === Role.ADMIN.toString() && (
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>Assign</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
@@ -226,19 +227,20 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
                 )}
-                {user.role === "ADMIN" && (
+                {user.role === Role.ADMIN.toString() && (
                   <DropdownMenuItem
                     onClick={() => deleteAssign(row.row.getValue("id"))}>
                     Remove Assign
                   </DropdownMenuItem>
                 )}
-                {user.role === "ADMIN" && (
+                {user.role === Role.ADMIN.toString() && (
                   <DropdownMenuItem
                     onClick={() => deleteTicket(row.row.getValue("id"))}>
                     Delete
                   </DropdownMenuItem>
                 )}
-                {(user && user.role === "ADMIN") || user.role === "SUPPORT" ? (
+                {(user && user.role === Role.ADMIN.toString()) ||
+                user.role === Role.SUPPORT.toString() ? (
                   // TODO: add close ticket
                   <DropdownMenuItem>Close</DropdownMenuItem>
                 ) : null}
