@@ -28,6 +28,24 @@ In this project, we are developing a basic help desk application for businesses 
 
 - **Ticket Authorization:** Ticket authorization can be configured for different users and roles.
 
+
+# Project Configuration for Help Desk Application Developers
+
+If you have successfully deployed your Help Desk application, you can now follow the steps below:
+
+1. Open your web browser and go to http://localhost:8080/swagger-ui/index.html.
+
+2. **Log in** and authenticate with the Swagger interface using the **admin token**.
+
+3. Then, proceed to create the following as per your requirements:
+
+   - User Title
+   - Ticket Status
+   - Ticket Priority
+
+By following these steps, you will have successfully configured your development environment.
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
