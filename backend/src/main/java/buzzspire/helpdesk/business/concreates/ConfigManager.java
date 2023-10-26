@@ -44,8 +44,7 @@ public class ConfigManager implements ConfigServices {
 
     @Override
     public ResultData<List<Config>> getAll(String token) {
-        String role = jwtTokenProvider.getRoleFromToken(token);
-        if (jwtTokenProvider.validateToken(token) && role.equals(RoleEnum.ADMIN.toString())){
+        if (jwtTokenProvider.validateToken(token)){
             return new ResultData<>(configDAO.findAll(), "config list", true);
         } else {
             return new ResultData<>(null, "access denied", false);
