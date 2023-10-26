@@ -11,4 +11,6 @@ public interface ConfigServices {
     Result add(String token, AddConfigRequest addConfigRequest);
     ResultData<List<Config>> getAll(String token);
     Result delete(String token, long id);
+    Result setDefault(String token, long id);
+    ResultData<Config> getDefault(String token);
 }
