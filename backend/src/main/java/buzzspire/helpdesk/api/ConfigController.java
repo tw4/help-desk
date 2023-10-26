@@ -5,11 +5,15 @@ import buzzspire.helpdesk.core.utilities.result.Result;
 import buzzspire.helpdesk.core.utilities.result.ResultData;
 import buzzspire.helpdesk.dto.request.Config.AddConfigRequest;
 import buzzspire.helpdesk.entities.concreates.Config;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Config APIs")
+@CrossOrigin
 @Controller
 @RestController
 @RequestMapping("/api/config")
@@ -39,5 +43,17 @@ public class ConfigController {
     @DeleteMapping("/{id}")
     public Result deleteConfig(@RequestHeader String token, @RequestParam long id) {
         return configServices.delete(token, id);
+    }
+
+    // get default config
+    @GetMapping("/default")
+    public ResultData<Config> getDefaultConfig(@RequestHeader String token) {
+        return configServices.getDefault(token);
+    }
+
+    // set default config
+    @PutMapping("/default/{id}")
+    public Result setDefaultConfig(@RequestHeader String token, @RequestParam long id) {
+        return configServices.setDefault(token, id);
     }
 }

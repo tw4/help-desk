@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class ConfigManager implements ConfigServices {
+    private Config config;
     // inject ConfigDAO and JwtTokenProvider
     private final ConfigDAO configDAO;
     private JwtTokenProvider jwtTokenProvider;
@@ -23,6 +24,7 @@ public class ConfigManager implements ConfigServices {
     public ConfigManager(ConfigDAO configDAO, JwtTokenProvider jwtTokenProvider) {
         this.configDAO = configDAO;
         this.jwtTokenProvider = jwtTokenProvider;
+        config =  new Config();
     }
 
     // add method
@@ -64,5 +66,30 @@ public class ConfigManager implements ConfigServices {
             return new Result(false, "access denied");
         }
         return new Result(true, "config deleted");
+    }
+
+    @Override
+    public Result setDefault(String token, long id) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if(jwtTokenProvider.validateToken(token) &&  role.equals(RoleEnum.ADMIN.toString()) ){
+            try{
+                config = configDAO.findById(id).get();
+            } catch (Exception e){
+                return new Result(false, "config could not be set");
+            }
+        } else {
+            return new Result(false, "access denied");
+        }
+        return new Result(true, "config set");
+    }
+
+    @Override
+    public ResultData<Config> getDefault(String token) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if (jwtTokenProvider.validateToken(token) && role.equals(RoleEnum.ADMIN.toString())){
+            return new ResultData<>(config, "config", true);
+        } else {
+            return new ResultData<>(null, "access denied", false);
+        }
     }
 }
