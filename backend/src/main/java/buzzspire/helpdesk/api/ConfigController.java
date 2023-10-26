@@ -2,9 +2,13 @@ package buzzspire.helpdesk.api;
 
 import buzzspire.helpdesk.business.abstracts.ConfigServices;
 import buzzspire.helpdesk.core.utilities.result.Result;
+import buzzspire.helpdesk.core.utilities.result.ResultData;
 import buzzspire.helpdesk.dto.request.Config.AddConfigRequest;
+import buzzspire.helpdesk.entities.concreates.Config;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RestController
@@ -27,8 +31,8 @@ public class ConfigController {
 
     // get all config
     @GetMapping("/")
-    public String getConfig(@RequestHeader String token) {
-        return "get all Config";
+    public ResultData<List<Config>> getConfig(@RequestHeader String token) {
+        return configServices.getAll(token);
     }
 
     // delete config
