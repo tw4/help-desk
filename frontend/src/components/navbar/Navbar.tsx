@@ -16,8 +16,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { removeUser } from "@/store/features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { Role } from "@/enums/Role";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  // next router
+  const router = useRouter();
+
   // Redux State
   const user: User = useAppSelector(
     (state: RootState) => state.user.value as User
@@ -29,6 +34,10 @@ const Navbar = () => {
     dispatch(removeUser());
     localStorage.removeItem("token");
     window.location.href = "/";
+  };
+
+  const goToAdminPanel = () => {
+    router.push("/admin");
   };
 
   return (
@@ -57,6 +66,12 @@ const Navbar = () => {
                 Account Settings
                 <DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
               </DropdownMenuItem>
+              {user?.role === Role.ADMIN.toString() && (
+                <DropdownMenuItem onClick={goToAdminPanel}>
+                  Admin Panel
+                  <DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem onClick={logout}>
                 Log Out
                 <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
