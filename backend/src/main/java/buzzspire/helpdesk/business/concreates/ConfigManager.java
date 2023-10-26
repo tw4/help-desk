@@ -45,7 +45,7 @@ public class ConfigManager implements ConfigServices {
     @Override
     public ResultData<List<Config>> getAll(String token) {
         String role = jwtTokenProvider.getRoleFromToken(token);
-        if (role.equals(RoleEnum.ADMIN.toString())){
+        if (jwtTokenProvider.validateToken(token) && role.equals(RoleEnum.ADMIN.toString())){
             return new ResultData<>(configDAO.findAll(), "config list", true);
         } else {
             return new ResultData<>(null, "access denied", false);
@@ -55,7 +55,7 @@ public class ConfigManager implements ConfigServices {
     @Override
     public Result delete(String token, long id) {
         String role = jwtTokenProvider.getRoleFromToken(token);
-        if (role.equals(RoleEnum.ADMIN.toString())){
+        if (jwtTokenProvider.validateToken(token) && role.equals(RoleEnum.ADMIN.toString())){
             try{
                 configDAO.deleteById(id);
             } catch (Exception e){
