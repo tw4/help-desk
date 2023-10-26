@@ -51,4 +51,19 @@ public class ConfigManager implements ConfigServices {
             return new ResultData<>(null, "access denied", false);
         }
     }
+
+    @Override
+    public Result delete(String token, long id) {
+        String role = jwtTokenProvider.getRoleFromToken(token);
+        if (role.equals(RoleEnum.ADMIN.toString())){
+            try{
+                configDAO.deleteById(id);
+            } catch (Exception e){
+                return new Result(false, "config could not be deleted");
+            }
+        } else {
+            return new Result(false, "access denied");
+        }
+        return new Result(true, "config deleted");
+    }
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface ConfigServices {
     Result add(String token, AddConfigRequest addConfigRequest);
     ResultData<List<Config>> getAll(String token);
+    Result delete(String token, long id);
 }

@@ -36,8 +36,8 @@ public class ConfigController {
     }
 
     // delete config
-    @DeleteMapping("/")
-    public String deleteConfig(@RequestHeader String token) {
-        return "Config deleted";
+    @DeleteMapping("/{id}")
+    public Result deleteConfig(@RequestHeader String token, @RequestParam long id) {
+        return configServices.delete(token, id);
     }
 }
