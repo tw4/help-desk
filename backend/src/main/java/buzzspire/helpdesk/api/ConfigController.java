@@ -41,7 +41,7 @@ public class ConfigController {
 
     // delete config
     @DeleteMapping("/{id}")
-    public Result deleteConfig(@RequestHeader String token, @RequestParam long id) {
+    public Result deleteConfig(@RequestHeader String token, @PathVariable long id) {
         return configServices.delete(token, id);
     }
 
@@ -52,8 +52,8 @@ public class ConfigController {
     }
 
     // set default config
-    @PutMapping("/default/{id}")
-    public Result setDefaultConfig(@RequestHeader String token, @RequestParam long id) {
+    @PatchMapping("/default/{id}")
+    public Result setDefaultConfig(@RequestHeader String token, @PathVariable long id) {
         return configServices.setDefault(token, id);
     }
 }
