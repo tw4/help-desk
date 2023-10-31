@@ -5,7 +5,11 @@ import {
   getDefaultConfigList,
   updateDefaultConfig,
 } from "@/api/config";
-import { addStatus } from "@/api/status";
+import {
+  addSTickettatus,
+  deleteTicketStatus,
+  getTicketStatusList,
+} from "@/api/status";
 import { getUser } from "@/api/user";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -41,7 +45,6 @@ import { User } from "@/types/userType";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import axios from "axios";
-import { ro } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -100,7 +103,6 @@ const Admin = () => {
     }
   }, [user]);
 
-  // get config list
   useEffect(() => {
     // get config list
     getDefaultConfigList(localStorage.getItem("token") || "").then((res) => {
@@ -110,18 +112,16 @@ const Admin = () => {
     });
 
     // get ticket status list
-    axios.get(TicketStatusEndpoints.GetAllTicketStatus).then((res) => {
-      if (res.data.success) {
-        setTicketStatusList(res.data.data);
-      }
-    });
-  }, []);
-
-  // get default config
-  useEffect(() => {
-    getDefaultConfig(localStorage.getItem("token") || "").then((res) => {
+    getTicketStatusList(localStorage.getItem("token") || "").then((res) => {
       if (res) {
         console.log(res);
+        setTicketStatusList(res);
+      }
+    });
+
+    // get default config
+    getDefaultConfig(localStorage.getItem("token") || "").then((res) => {
+      if (res) {
         setDefaultConfig(res);
       }
     });
@@ -200,7 +200,24 @@ const Admin = () => {
   const addTicketStatusFormSubmit = (
     data: z.infer<typeof addTicketStatusFormSchema>
   ) => {
-    addStatus(localStorage.getItem("token") || "", data.status).then((res) => {
+    addSTickettatus(localStorage.getItem("token") || "", data.status).then(
+      (res) => {
+        if (res) {
+          router.reload();
+        } else {
+          toast({
+            title: "Error",
+            description: "Something went wrong",
+            duration: 2000,
+          });
+        }
+      }
+    );
+  };
+
+  // config table for table delete button click
+  const handleConfigDelete = (id: number) => {
+    deleteConfig(localStorage.getItem("token") || "", id).then((res) => {
       if (res) {
         router.reload();
       } else {
@@ -213,9 +230,9 @@ const Admin = () => {
     });
   };
 
-  // table delete button click
-  const handleDelete = (id: number) => {
-    deleteConfig(localStorage.getItem("token") || "", id).then((res) => {
+  // status table for table delete button click
+  const handleStatusDelete = (id: number) => {
+    deleteTicketStatus(localStorage.getItem("token") || "", id).then((res) => {
       if (res) {
         router.reload();
       } else {
@@ -240,7 +257,7 @@ const Admin = () => {
         </TabsContent>
         <TabsContent className="w-full" value="config">
           <div className="mt-16">
-            <Table>
+            <Table className="border-2">
               <TableCaption>A list of your config</TableCaption>
               <TableHeader>
                 <TableRow>
@@ -264,7 +281,39 @@ const Admin = () => {
                           <Button
                             className="text-red-400"
                             variant="ghost"
-                            onClick={() => handleDelete(config.id)}>
+                            onClick={() => handleConfigDelete(config.id)}>
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+
+            <Table className="border-2 mt-5">
+              <TableCaption>A list of your status</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ID</TableHead>
+                  <TableHead>status</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {configList &&
+                  ticketStatusList.map((status) => {
+                    return (
+                      <TableRow key={status.id}>
+                        <TableCell className="font-medium">
+                          {status.id}
+                        </TableCell>
+                        <TableCell>{status.status}</TableCell>
+                        <TableCell>
+                          <Button
+                            className="text-red-400"
+                            variant="ghost"
+                            onClick={() => handleStatusDelete(status.id)}>
                             Delete
                           </Button>
                         </TableCell>
