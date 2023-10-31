@@ -31,7 +31,9 @@ const formSchema = z.object({
   description: z.string().min(3, {
     message: "Description must be at least 3 characters long",
   }),
-  priority: z.string(),
+  priority: z.string().min(1, {
+    message: "Please select a priority",
+  }),
 });
 
 const TicketDialog = () => {
@@ -125,8 +127,12 @@ const TicketDialog = () => {
                   <Label>
                     Priority
                     <select
+                      defaultValue=""
                       {...field}
                       className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                      <option value="" disabled>
+                        Select a priority
+                      </option>
                       {priority &&
                         priority.map((p) => {
                           return (
@@ -136,6 +142,9 @@ const TicketDialog = () => {
                           );
                         })}
                     </select>
+                    <FormMessage>
+                      {form.formState.errors.priority?.message}
+                    </FormMessage>
                   </Label>
                 )}
               />
