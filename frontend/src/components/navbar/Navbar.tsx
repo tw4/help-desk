@@ -18,6 +18,7 @@ import { removeUser } from "@/store/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { Role } from "@/enums/Role";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Navbar = () => {
   // next router
@@ -42,7 +43,9 @@ const Navbar = () => {
 
   return (
     <nav className="h-12 border-b-[1px] border-gray-300 flex flex-row items-center justify-between">
-      <span className="ml-4 font-bold">HELP DESK</span>
+      <Link href="/dashboard" className="ml-4 font-bold">
+        HELP DESK
+      </Link>
       <div>
         {/* TODO: Add Shortcut functions */}
         <DropdownMenu>
