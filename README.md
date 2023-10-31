@@ -28,6 +28,15 @@ In this project, we are developing a basic help desk application for businesses 
 
 - **Ticket Authorization:** Ticket authorization can be configured for different users and roles.
 
+## screen
+
+Last update date: October 31, 2023
+
+https://github.com/BuzzSpire/help-desk/assets/88425310/6d6562d6-f2b3-4d93-8f15-cc557acb8a02
+
+
+
+
 
 # Project Configuration for Help Desk Application Developers
 
