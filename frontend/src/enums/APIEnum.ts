@@ -39,7 +39,7 @@ export enum RoleEndpoints {
 export enum TicketStatusEndpoints {
   GetAllTicketStatus = API_DOMAIN + "/api/status/", // Get all ticket status
   AddTicketStatus = API_DOMAIN + "/api/status/", // Add new ticket status
-  DeleteTicketStatus = API_DOMAIN + "/api/status/{id}", // Delete ticket status
+  DeleteTicketStatus = API_DOMAIN + "/api/status/", // Delete ticket status
 }
 
 export enum TicketPriorityEndpoints {
@@ -60,7 +60,7 @@ export enum AuthEndpoints {
   Login = API_DOMAIN + "/api/auth/", // Login
 }
 
-export enum Config {
+export enum ConfigEndpoints {
   GetConfigList = API_DOMAIN + "/api/config/", // Get Config
   UpdateDefaultConfig = API_DOMAIN + "/api/config/default/", // Update Default Config
   GetDefaultConfig = API_DOMAIN + "/api/config/default", // Get Default Config

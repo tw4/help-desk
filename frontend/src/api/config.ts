@@ -1,9 +1,9 @@
-import { Config } from "@/enums/APIEnum";
+import { ConfigEndpoints } from "@/enums/APIEnum";
 import axios from "axios";
 
 export const getDefaultConfigList = async (token: string) => {
   const res = await axios
-    .get(Config.GetConfigList, {
+    .get(ConfigEndpoints.GetConfigList, {
       headers: {
         token: token,
       },
@@ -20,7 +20,7 @@ export const getDefaultConfigList = async (token: string) => {
 
 export const getDefaultConfig = async (token: string) => {
   const res = await axios
-    .get(Config.GetDefaultConfig, {
+    .get(ConfigEndpoints.GetDefaultConfig, {
       headers: {
         token: token,
       },
@@ -38,7 +38,7 @@ export const getDefaultConfig = async (token: string) => {
 export const updateDefaultConfig = async (token: string, id: number) => {
   const res = await axios
     .patch(
-      Config.UpdateDefaultConfig + id,
+      ConfigEndpoints.UpdateDefaultConfig + id,
       {},
       {
         headers: {
@@ -63,7 +63,7 @@ export const addConfig = async (
 ) => {
   const res = await axios
     .post(
-      Config.AddConfig,
+      ConfigEndpoints.AddConfig,
       {
         openTicketStatusId: openTicketStatusId,
         closeTicketStatusId: closeTicketStatusId,
@@ -86,7 +86,7 @@ export const addConfig = async (
 
 export const deleteConfig = async (token: string, id: number) => {
   const res = await axios
-    .delete(Config.DeleteConfig + id, {
+    .delete(ConfigEndpoints.DeleteConfig + id, {
       headers: {
         token: token,
       },

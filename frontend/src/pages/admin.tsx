@@ -5,6 +5,7 @@ import {
   getDefaultConfigList,
   updateDefaultConfig,
 } from "@/api/config";
+import { addStatus } from "@/api/status";
 import { getUser } from "@/api/user";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -199,17 +200,17 @@ const Admin = () => {
   const addTicketStatusFormSubmit = (
     data: z.infer<typeof addTicketStatusFormSchema>
   ) => {
-    axios
-      .post("http://localhost:8080/api/status/", data, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          router.reload();
-        }
-      });
+    addStatus(localStorage.getItem("token") || "", data.status).then((res) => {
+      if (res) {
+        router.reload();
+      } else {
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          duration: 2000,
+        });
+      }
+    });
   };
 
   // table delete button click
