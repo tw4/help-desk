@@ -59,3 +59,11 @@ export enum AuthEndpoints {
   VerifyToken = API_DOMAIN + "/api/auth/", // Verify Token
   Login = API_DOMAIN + "/api/auth/", // Login
 }
+
+export enum Config {
+  GetConfigList = API_DOMAIN + "/api/config/", // Get Config
+  UpdateDefaultConfig = API_DOMAIN + "/api/config/default/", // Update Default Config
+  GetDefaultConfig = API_DOMAIN + "/api/config/default", // Get Default Config
+  AddConfig = API_DOMAIN + "/api/config/", // Get Config
+  DeleteConfig = API_DOMAIN + "/api/config/", // Delete Config
+}

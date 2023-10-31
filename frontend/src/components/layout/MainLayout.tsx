@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from "react";
 import Navbar from "../navbar/Navbar";
+import { Toaster } from "../ui/toaster";
 
 interface MainLayoutProps {
   children?: ReactNode;
@@ -12,6 +13,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
         <Navbar />
         <div className="p-2">{children}</div>
       </div>
+      <Toaster />
     </main>
   );
 };
