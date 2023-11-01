@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Form, FormField, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { TicketEndpoints, TicketMassageEndpoints } from "@/enums/APIEnum";
+import { Role } from "@/enums/Role";
 import { useAuth } from "@/hook/Auth";
 import { useAppDispatch, useAppSelector } from "@/hook/Redux";
 import { addUser } from "@/store/features/user/userSlice";
@@ -20,8 +20,6 @@ import { Ticket } from "@/types/TicketType";
 import { User } from "@/types/userType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import axios from "axios";
-import { set } from "date-fns";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -119,7 +117,7 @@ const TicketDetail = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5 p-5 w-full border-2 border-gray-400 rounded-xl">
+      <div className="mt-5 p-5 w-full border-2 border-gray-400 bg-[#0084FF] text-white rounded-xl">
         {ticket?.description}
       </div>
       <div>
@@ -127,7 +125,13 @@ const TicketDetail = () => {
           ticket.messages.map((message) => {
             return (
               <div key={message.id}>
-                <div className="flex flex-row mt-10 items-center justify-between">
+                <div
+                  className={`flex flex-row mt-10 items-center justify-between ${
+                    message.sender.role === Role.ADMIN ||
+                    message.sender.role === Role.SUPPORT
+                      ? "flex-row-reverse"
+                      : "justify-start"
+                  } `}>
                   <div className="flex flex-row space-x-3 items-center">
                     <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-300 to-blue-500"></div>{" "}
                     <div className="ml-2">
@@ -149,9 +153,31 @@ const TicketDetail = () => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <div className="mt-5 p-5 w-full border-2 border-gray-400 rounded-xl">
-                  {message.message}
+                <div
+                  className={`
+                flex flex-row 
+                ${
+                  message.sender.role === Role.ADMIN ||
+                  message.sender.role === Role.SUPPORT
+                    ? "justify-end"
+                    : "justify-start"
+                } 
+                `}>
+                  <div
+                    className={`mt-5 p-5 w-fit border-2 border-gray-400 bg-[#0084FF] text-white rounded-xl`}>
+                    {message.message}
+                  </div>
                 </div>
+                <p
+                  className={`
+                ${
+                  message.sender.role === Role.ADMIN ||
+                  message.sender.role === Role.SUPPORT
+                    ? "text-end"
+                    : "text-start"
+                }`}>
+                  {message.date.toString().slice(0, 10)}
+                </p>
               </div>
             );
           })}
