@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { FiSend } from "react-icons/fi";
 
 // form schema
 const formSchema = z.object({
@@ -117,7 +118,7 @@ const TicketDetail = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5 p-5 w-full border-2 border-gray-400 bg-[#0084FF] text-white rounded-xl">
+      <div className="mt-5 p-5 w-full border-2 border-gray-400 bg-gray-700 text-white rounded-xl">
         {ticket?.description}
       </div>
       <div>
@@ -164,7 +165,7 @@ const TicketDetail = () => {
                 } 
                 `}>
                   <div
-                    className={`mt-5 p-5 w-fit border-2 border-gray-400 bg-[#0084FF] text-white rounded-xl`}>
+                    className={`mt-5 p-5 w-fit border-2 border-gray-400 bg-gray-700 text-white rounded-xl`}>
                     {message.message}
                   </div>
                 </div>
@@ -183,7 +184,9 @@ const TicketDetail = () => {
           })}
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-10 w-full text-end">
           <FormField
             control={form.control}
             name="massage"
@@ -196,8 +199,9 @@ const TicketDetail = () => {
             )}
           />
           <FormMessage>{form.formState.errors.massage?.message}</FormMessage>
-          <Button className="mt-5" type="submit">
-            Send
+          <Button className="space-x-3 mt-5 " type="submit">
+            <p> Send</p>
+            <FiSend />
           </Button>
         </form>
       </Form>
