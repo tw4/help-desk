@@ -45,5 +45,4 @@ public class TicketStatusController {
     public Result delete(@RequestHeader String token, @PathVariable long id) {
         return ticketStatusServices.delete(token, id);
     }
-
 }
