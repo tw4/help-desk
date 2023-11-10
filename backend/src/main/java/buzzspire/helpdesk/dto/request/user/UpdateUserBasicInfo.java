@@ -16,6 +16,4 @@ public class UpdateUserBasicInfo {
     private String name;
     private String surname;
     private String email;
-    private RoleEnum role;
-    private UserTitle title;
 }

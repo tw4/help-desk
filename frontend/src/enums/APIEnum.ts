@@ -2,7 +2,7 @@ export const API_DOMAIN = "http://localhost:8080";
 
 export enum UserEndpoints {
   GetUserById = API_DOMAIN + "/api/users/{id}", // Get User By Id
-  UpdateUserBasicInfo = API_DOMAIN + "/api/users/{id}", // Update User Basic Info
+  UpdateUserBasicInfo = API_DOMAIN + "/api/users/", // Update User Basic Info
   DeleteUser = API_DOMAIN + "/api/users/{id}", // Delete User
   UpdateUserPassword = API_DOMAIN + "/api/users/{id}/password", // Update User Password
   GetAllUsers = API_DOMAIN + "/api/users/", // Get All Users

@@ -45,6 +45,10 @@ const Navbar = () => {
     router.push("/dashboard");
   };
 
+  const goToAccountSettings = () => {
+    router.push("/settings");
+  };
+
   return (
     <nav className="h-12 border-b-[1px] border-gray-300 flex flex-row items-center justify-between">
       <Link href="/dashboard" className="ml-4 font-bold">
@@ -73,7 +77,7 @@ const Navbar = () => {
                 Dashboard
                 <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => goToAccountSettings()}>
                 Account Settings
                 <DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
               </DropdownMenuItem>

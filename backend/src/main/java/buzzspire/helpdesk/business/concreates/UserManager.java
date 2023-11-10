@@ -76,8 +76,6 @@ public class UserManager implements UserServices {
         newUser.setName(user.getName());
         newUser.setSurname(user.getSurname());
         newUser.setEmail(user.getEmail());
-        newUser.setRole(user.getRole());
-        newUser.setTitle(user.getTitle());
         try {
             userDAO.save(newUser);
         } catch (Exception e) {
