@@ -1,4 +1,4 @@
-import { UpdateUserBasicInfo, getUser } from "@/api/user";
+import { UpdateUserBasicInfo, UpdateUserPassword, getUser } from "@/api/user";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -104,7 +104,21 @@ const Settings = () => {
   // password form submit
   const passwordFormSubmit = (data: z.infer<typeof passwordFormSchema>) => {
     if (data.password === data.confirmPassword) {
-      console.log(data);
+      UpdateUserPassword(
+        localStorage.getItem("token") || "",
+        data.password,
+        user.id
+      ).then((res) => {
+        if (res) {
+          router.reload();
+        } else {
+          toast({
+            title: "Error",
+            description: "Something went wrong",
+            duration: 2000,
+          });
+        }
+      });
     } else {
       toast({
         title: "Error",
