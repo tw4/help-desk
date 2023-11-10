@@ -24,6 +24,7 @@ import {
 } from "@radix-ui/react-hover-card";
 import { Button } from "../ui/button";
 import { useRouter } from "next/router";
+import { getDefaultConfig } from "@/api/config";
 
 interface TicketTableeProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,18 +53,14 @@ export function TicketTable<TData, TValue>({
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/config/default", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        if (res.data.success && res.data.data.id !== 0) {
-          setConfig(res.data.data);
-        }
-      });
-  }, [config]);
+    getDefaultConfig(localStorage.getItem("token") || "").then((res) => {
+      console.log(res);
+      // if config is not default config
+      if (res.id !== 0) {
+        setConfig(res);
+      }
+    });
+  }, []);
 
   return (
     <div className="rounded-md border">

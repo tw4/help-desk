@@ -56,10 +56,6 @@ const Dashboard = () => {
     <MainLayout>
       <div className="flex flex-row justify-between mt-2">
         <div className="flex flex-row justify-between space-x-3">
-          {/* TODO:  If you select a search with status and priority 
-            in this section, a pop-up selection will be added and the 
-            status and priority information retrieved via the API will 
-            be shown and the search will be made accordingly.  */}
           <Input
             className="w-56"
             type="text"

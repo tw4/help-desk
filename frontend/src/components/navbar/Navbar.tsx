@@ -19,7 +19,6 @@ import { useDispatch } from "react-redux";
 import { Role } from "@/enums/Role";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Dropdown } from "react-day-picker";
 
 const Navbar = () => {
   // next router
