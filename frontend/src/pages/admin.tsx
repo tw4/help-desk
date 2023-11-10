@@ -34,7 +34,6 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
-import { TicketStatusEndpoints } from "@/enums/APIEnum";
 import { Role } from "@/enums/Role";
 import { useAuth } from "@/hook/Auth";
 import { useAppSelector } from "@/hook/Redux";
@@ -44,7 +43,6 @@ import { TicketStatus } from "@/types/TicketStatusType";
 import { User } from "@/types/userType";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
