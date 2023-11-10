@@ -58,7 +58,7 @@ public class UserController {
 
     // this method is used to update user password
     @Operation(summary = "Update User Password")
-    @PutMapping("/{id}/password")
+    @PatchMapping("/{id}/password")
     public Result updatePassword(@RequestBody UpdateUserPasswordRequest user, @RequestHeader String token) {
         return userServices.updatePassword(user, token);
     }
