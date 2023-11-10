@@ -54,7 +54,6 @@ export function TicketTable<TData, TValue>({
 
   useEffect(() => {
     getDefaultConfig(localStorage.getItem("token") || "").then((res) => {
-      console.log(res);
       // if config is not default config
       if (res.id !== 0) {
         setConfig(res);
