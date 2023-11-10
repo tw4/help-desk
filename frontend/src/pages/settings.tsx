@@ -1,4 +1,4 @@
-import { getUser } from "@/api/user";
+import { UpdateUserBasicInfo, getUser } from "@/api/user";
 import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+// TODO: export all form schemas to a single file
 // basic info form schema
 const basicInfoFormSchema = z.object({
   name: z.string().min(2, "First name must be at least 2 characters"),
@@ -74,7 +75,21 @@ const Settings = () => {
 
   // basit info form submit
   const basicInfoFormSubmit = (data: z.infer<typeof basicInfoFormSchema>) => {
-    console.log(data);
+    UpdateUserBasicInfo(
+      localStorage.getItem("token") || "",
+      data,
+      user.id
+    ).then((res) => {
+      if (res) {
+        router.reload();
+      } else {
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          duration: 2000,
+        });
+      }
+    });
   };
 
   // password form

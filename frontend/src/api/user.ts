@@ -32,3 +32,24 @@ export const getAllSupporters = (token: string) => {
     });
   return res;
 };
+
+export const UpdateUserBasicInfo = (
+  token: string,
+  data: any,
+  userID: number
+) => {
+  const res = axios
+    .put(UserEndpoints.UpdateUserBasicInfo + userID, data, {
+      headers: {
+        token: token,
+      },
+    })
+    .then((res) => {
+      if (res.data.success) {
+        return true;
+      } else {
+        return null;
+      }
+    });
+  return res;
+};
