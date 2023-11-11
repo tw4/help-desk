@@ -1,6 +1,7 @@
 import { TicketMassageEndpoints } from "@/enums/APIEnum";
 import axios from "axios";
 
+// this is the api call to add ticket message
 export const addTicketMessage = async (
   token: string,
   ticketId: number | undefined,
@@ -25,6 +26,7 @@ export const addTicketMessage = async (
   return res;
 };
 
+// this is the api call to delete ticket message
 export const deleteTicketMessage = async (id: number, token: string) => {
   const res = axios
     .delete(TicketMassageEndpoints.DeleteTicketMassage + id, {

@@ -19,13 +19,11 @@ const formSchema = z.object({
 });
 
 const Home = () => {
-  // check if user is authenticated
+  // redirect to dashboard if user is authenticated
+  useAuth();
 
   // error state
   const [error, setError] = useState<string>("");
-
-  // redirect to dashboard if user is authenticated
-  useAuth();
 
   // form hook
   const form = useForm<z.infer<typeof formSchema>>({

@@ -37,14 +37,17 @@ const Navbar = () => {
     window.location.href = "/";
   };
 
+  // go to admin panel
   const goToAdminPanel = () => {
     router.push("/admin");
   };
 
+  // go to dashboard
   const goToDashboard = () => {
     router.push("/dashboard");
   };
 
+  // go to account settings
   const goToAccountSettings = () => {
     router.push("/settings");
   };

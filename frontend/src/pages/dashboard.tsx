@@ -44,10 +44,12 @@ const Dashboard = () => {
       });
   }, [dispatch]); // Include dispatch in the dependency array
 
+  // handle search
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
+  // handle search type
   const handleSearchType = (type: SearchTypeEnum) => {
     setSearchType(type);
   };
