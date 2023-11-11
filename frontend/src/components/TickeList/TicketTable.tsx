@@ -16,7 +16,6 @@ import {
 import { Ticket } from "@/types/TicketType";
 import { Config } from "@/types/Config";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {
   HoverCard,
   HoverCardContent,

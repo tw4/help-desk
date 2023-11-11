@@ -1,6 +1,7 @@
 import { UserEndpoints } from "@/enums/APIEnum";
 import axios from "axios";
 
+// this is the api call to get the user
 export const getUser = (token: string) => {
   const res = axios
     .get(UserEndpoints.GetMe, {
@@ -18,6 +19,7 @@ export const getUser = (token: string) => {
   return res;
 };
 
+// this is the api call to get the all All lSupporters
 export const getAllSupporters = (token: string) => {
   const res = axios
     .get(UserEndpoints.getAllSupporters, {
@@ -33,6 +35,7 @@ export const getAllSupporters = (token: string) => {
   return res;
 };
 
+// this is the api call to get the update user basic info
 export const UpdateUserBasicInfo = (
   token: string,
   data: any,
@@ -54,6 +57,7 @@ export const UpdateUserBasicInfo = (
   return res;
 };
 
+// this is the api call to get the update user password
 export const UpdateUserPassword = (
   token: string,
   data: string,

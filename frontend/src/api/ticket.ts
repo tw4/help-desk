@@ -1,6 +1,7 @@
 import { TicketEndpoints } from "@/enums/APIEnum";
 import axios from "axios";
 
+// this is the api call to get the ticket list
 export const getAllTickets = async (token: string, page: number) => {
   const res = axios
     .get(TicketEndpoints.GetAllTickets + `${page}/24`, {
@@ -18,6 +19,7 @@ export const getAllTickets = async (token: string, page: number) => {
   return res;
 };
 
+// this is the api call to get the ticket by id
 export const getTicketById = async (token: string, id: string | string[]) => {
   const res = axios
     .get(TicketEndpoints.GetTicketById + id, {
