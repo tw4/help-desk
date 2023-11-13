@@ -70,13 +70,6 @@ public class UserController {
         return userServices.getById(id, token);
     }
 
-    // this method used to fetch user information with tokens.
-    @Operation
-    @GetMapping("/me")
-    public ResultData<User> getMyInfo(@RequestHeader String token) {
-        return userServices.getMyInfo(token);
-    }
-
     // this method get all supporters
     @Operation(summary = "get all supporters")
     @GetMapping("/supporters")
