@@ -71,6 +71,9 @@ public class UserManager implements UserServices {
     // this method used for update user basic info
     @Override
     public Result updateBasicInfo(UpdateUserBasicInfo user, String token) {
+        if (!jwtTokenProvider.validateToken(token)) {
+            return new Result(false, "Token is not valid");
+        }
         long id = jwtTokenProvider.getIdFromToken(token);
         User newUser = userDAO.getUserById(id);
         newUser.setName(user.getName());
@@ -87,6 +90,9 @@ public class UserManager implements UserServices {
     // this method used for update user password
     @Override
     public Result updatePassword(UpdateUserPasswordRequest request, String token) {
+        if (!jwtTokenProvider.validateToken(token)) {
+            return new Result(false, "Token is not valid");
+        }
         long id = jwtTokenProvider.getIdFromToken(token);
         User newUser = userDAO.getUserById(id);
         newUser.setPassword(request.getPassword());
@@ -138,18 +144,12 @@ public class UserManager implements UserServices {
         return new Result(false, "Token is not valid");
     }
 
-    // this method used for get user by email
+    // This method is only used within the application and is for getting the admin e-mail address.
     @Override
     public ResultData<User> getByEmail(String email) {
         return new ResultData<>(userDAO.findByEmail(email), "User", true);
     }
 
-    // this method used for get my info
-    @Override
-    public ResultData<User> getMyInfo(String token) {
-        long id = jwtTokenProvider.getIdFromToken(token);
-        return new ResultData<>(userDAO.getUserById(id), "User", true);
-    }
 
     // this method used for get all supporter
     @Override
