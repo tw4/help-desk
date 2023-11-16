@@ -22,9 +22,13 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user) {
-      getUser(localStorage.getItem("token") || "").then((res) =>
-        dispatch(addUser(res))
-      );
+      getUser(localStorage.getItem("token") || "").then((res) => {
+        if (res) {
+          dispatch(addUser(res));
+        } else {
+          router.push("/");
+        }
+      });
     }
   }, []);
 
