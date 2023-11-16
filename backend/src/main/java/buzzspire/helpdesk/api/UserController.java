@@ -76,4 +76,11 @@ public class UserController {
     public ResultData<List<User>> getAllSupporters(@RequestHeader String token) {
         return userServices.getAllSupporters(token);
     }
+
+    // this method is used to get user
+    @Operation(summary = "Get User")
+    @GetMapping("/me")
+    public ResultData<User> getUser(@RequestHeader String token) {
+        return userServices.getUser(token);
+    }
 }
