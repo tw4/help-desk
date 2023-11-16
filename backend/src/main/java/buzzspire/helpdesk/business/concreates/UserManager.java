@@ -150,6 +150,15 @@ public class UserManager implements UserServices {
         return new ResultData<>(userDAO.findByEmail(email), "User", true);
     }
 
+    // get user data by token
+    @Override
+    public ResultData<User> getUser(String token) {
+        if (!jwtTokenProvider.validateToken(token)) {
+            return new ResultData<>(null, "Token is not valid", false);
+        }
+        long id = jwtTokenProvider.getIdFromToken(token);
+        return new ResultData<>(userDAO.getUserById(id), "User", true);
+    }
 
     // this method used for get all supporter
     @Override
