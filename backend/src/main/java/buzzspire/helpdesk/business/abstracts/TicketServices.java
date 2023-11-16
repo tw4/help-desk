@@ -16,4 +16,5 @@ public interface TicketServices {
     Result addTicketAssignee(long ticketId, long assigneeId, String token);
     Result removeTickerAssignee(long ticketId, String token);
     Result closeTicket(long ticketId, String token);
+    ResultData<List<Ticket>> getAllMyTicket(String token);
 }
