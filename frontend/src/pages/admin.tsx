@@ -360,7 +360,11 @@ const Admin = () => {
                           </div>
                         )}
                       />
-                      <Button type="submit">update config</Button>
+                      <Button
+                        className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                        type="submit">
+                        update config
+                      </Button>
                     </form>
                   </Form>
                   <div className="mt-5">
@@ -417,7 +421,11 @@ const Admin = () => {
                             </FormItem>
                           )}
                         />
-                        <Button type="submit">add config</Button>
+                        <Button
+                          className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                          type="submit">
+                          add config
+                        </Button>
                       </form>
                     </Form>
                     <h3 className="font-bold mt-5">Add ticket status</h3>
@@ -437,7 +445,11 @@ const Admin = () => {
                             </FormItem>
                           )}
                         />
-                        <Button type="submit">add ticket status</Button>
+                        <Button
+                          className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                          type="submit">
+                          add ticket status
+                        </Button>
                       </form>
                     </Form>
                   </div>
