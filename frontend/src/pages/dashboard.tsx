@@ -66,7 +66,7 @@ const Dashboard = () => {
           />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button>
+              <Button className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white">
                 Search By {searchType}
                 <ChevronDownIcon />
               </Button>

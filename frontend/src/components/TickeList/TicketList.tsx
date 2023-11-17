@@ -274,11 +274,17 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
     <div>
       <TicketTable columns={colums} data={searchResult} />
       <div className="w-full flex flex-row justify-between items-center">
-        <Button disabled={currentPage <= 1} onClick={previousPage}>
+        <Button
+          className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+          disabled={currentPage <= 1}
+          onClick={previousPage}>
           <ChevronLeftIcon />
           Previous Page
         </Button>
-        <Button disabled={tickets.length === 0} onClick={nextPage}>
+        <Button
+          className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+          disabled={tickets.length === 0}
+          onClick={nextPage}>
           Next Page
           <ChevronRightIcon />
         </Button>

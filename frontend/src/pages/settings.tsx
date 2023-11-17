@@ -176,7 +176,9 @@ const Settings = () => {
                   </FormItem>
                 )}
               />
-              <Button className="mt-4" type="submit">
+              <Button
+                className="mt-4 focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                type="submit">
                 Update
               </Button>
             </form>
@@ -212,7 +214,9 @@ const Settings = () => {
                   </FormItem>
                 )}
               />
-              <Button className="mt-4" type="submit">
+              <Button
+                className="mt-4 focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                type="submit">
                 Update
               </Button>
             </form>

@@ -94,7 +94,9 @@ const TicketDialog = () => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>New Ticket</Button>
+          <Button className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white">
+            New Ticket
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>New Ticket</DialogHeader>
@@ -155,7 +157,11 @@ const TicketDialog = () => {
                   </Label>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button
+                className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                type="submit">
+                Submit
+              </Button>
             </form>
           </Form>
         </DialogContent>
