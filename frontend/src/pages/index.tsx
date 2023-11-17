@@ -90,7 +90,11 @@ const Home = () => {
               <FormMessage>
                 {form.formState.errors.password?.message}
               </FormMessage>
-              <Button type="submit">Login</Button>
+              <Button
+                className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
+                type="submit">
+                Login
+              </Button>
               <FormMessage>{error}</FormMessage>
             </form>
           </Form>
