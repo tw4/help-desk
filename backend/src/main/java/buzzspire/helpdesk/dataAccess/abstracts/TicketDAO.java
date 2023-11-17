@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface TicketDAO extends JpaRepository<Ticket, Long> {
     Page<Ticket> findAllByUserId(long id, PageRequest pageRequest);
+    List<Ticket> findAllByUserId(long id);
 }

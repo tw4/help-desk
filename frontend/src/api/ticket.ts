@@ -56,3 +56,21 @@ export const closedTicket = async (token: string, id: number) => {
     });
   return res;
 };
+
+// get my tickets
+export const getMyTickets = async (token: string) => {
+  const res = await axios
+    .get(TicketEndpoints.GetMyTickets, {
+      headers: {
+        token: token,
+      },
+    })
+    .then((res) => {
+      if (res.data.success) {
+        return res.data.data;
+      } else {
+        return null;
+      }
+    });
+  return res;
+};

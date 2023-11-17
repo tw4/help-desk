@@ -164,6 +164,7 @@ public class TicketManager implements TicketServices {
         return new Result(true, "Ticket assignee removed");
     }
 
+    // this method is used to close a ticket
     @Override
     public Result closeTicket(long ticketId, String token) {
         if (!jwtTokenProvider.validateToken(token)){
@@ -185,6 +186,16 @@ public class TicketManager implements TicketServices {
         }
 
         return new Result(true, "Ticket closed");
+    }
+
+    // this method is used to get all my tickets
+    @Override
+    public ResultData<List<Ticket>> getAllMyTicket(String token) {
+        if(!jwtTokenProvider.validateToken(token)){
+            return new ResultData<>(null, "Token is not valid", false);
+        }
+        long userID = jwtTokenProvider.getIdFromToken(token);
+        return new ResultData<>(ticketDAO.findAllByUserId(userID), "Ticket list", true);
     }
 
 }

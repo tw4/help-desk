@@ -83,4 +83,11 @@ public class TicketController {
         return ticketServices.closeTicket(ticketId, token);
     }
 
+    // this method is a get method and it is return all my ticket
+    @Operation(summary = "get All My Ticket")
+    @GetMapping("/myTickets")
+    public ResultData<List<Ticket>> getAllMyTicket(@RequestHeader String token) {
+        return ticketServices.getAllMyTicket(token);
+    }
+
 }

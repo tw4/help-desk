@@ -52,6 +52,11 @@ const Navbar = () => {
     router.push("/settings");
   };
 
+  // go to my profile
+  const goToMyProfile = () => {
+    router.push("/profile");
+  };
+
   return (
     <nav className="h-12 border-b-[1px] border-gray-300 flex flex-row items-center justify-between">
       <Link href="/dashboard" className="ml-4 font-bold">
@@ -72,7 +77,7 @@ const Navbar = () => {
             <DropdownMenuLabel>title: {user?.title.title}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => goToMyProfile()}>
                 My Profile
                 <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
               </DropdownMenuItem>
