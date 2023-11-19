@@ -1,6 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
@@ -70,26 +76,30 @@ const Home = () => {
                 name="email"
                 control={form.control}
                 render={({ field }) => (
-                  <Label>
-                    Email
-                    <Input {...field} />
-                  </Label>
+                  <FormItem>
+                    <Label>Email</Label>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              <FormMessage>{form.formState.errors.email?.message}</FormMessage>
+              <FormMessage />
               <FormField
                 name="password"
                 control={form.control}
                 render={({ field }) => (
-                  <Label>
-                    Password
-                    <Input type="password" {...field} />
-                  </Label>
+                  <FormItem>
+                    <Label>Password</Label>
+                    <FormControl>
+                      <Input type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              <FormMessage>
-                {form.formState.errors.password?.message}
-              </FormMessage>
+              <FormControl />
               <Button
                 className="focus-visible:ring-2 focus-visible:ring-black focus-visible:border-2 focus-visible:border-white"
                 type="submit">

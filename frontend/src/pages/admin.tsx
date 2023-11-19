@@ -20,7 +20,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Form, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -381,20 +387,23 @@ const Admin = () => {
                           render={({ field }) => (
                             <FormItem>
                               <Label>Select open ticket status</Label>
-                              <select
-                                {...field}
-                                className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                                defaultValue="0">
-                                <option value="0" disabled>
-                                  Select open ticket status
-                                </option>
-                                {ticketStatusList &&
-                                  ticketStatusList.map((status) => (
-                                    <option key={status.id} value={status.id}>
-                                      {status.status}
-                                    </option>
-                                  ))}
-                              </select>
+                              <FormControl>
+                                <select
+                                  {...field}
+                                  className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                  defaultValue="0">
+                                  <option value="0" disabled>
+                                    Select open ticket status
+                                  </option>
+                                  {ticketStatusList &&
+                                    ticketStatusList.map((status) => (
+                                      <option key={status.id} value={status.id}>
+                                        {status.status}
+                                      </option>
+                                    ))}
+                                </select>
+                              </FormControl>
+                              <FormMessage />
                             </FormItem>
                           )}
                         />
@@ -404,20 +413,23 @@ const Admin = () => {
                           render={({ field }) => (
                             <FormItem>
                               <Label>Select close ticket status</Label>
-                              <select
-                                {...field}
-                                className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                                defaultValue="0">
-                                <option value="0" disabled>
-                                  Select close ticket status
-                                </option>
-                                {ticketStatusList &&
-                                  ticketStatusList.map((status) => (
-                                    <option key={status.id} value={status.id}>
-                                      {status.status}
-                                    </option>
-                                  ))}
-                              </select>
+                              <FormControl>
+                                <select
+                                  {...field}
+                                  className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                  defaultValue="0">
+                                  <option value="0" disabled>
+                                    Select close ticket status
+                                  </option>
+                                  {ticketStatusList &&
+                                    ticketStatusList.map((status) => (
+                                      <option key={status.id} value={status.id}>
+                                        {status.status}
+                                      </option>
+                                    ))}
+                                </select>
+                              </FormControl>
+                              <FormMessage />
                             </FormItem>
                           )}
                         />
@@ -441,7 +453,10 @@ const Admin = () => {
                           render={({ field }) => (
                             <FormItem>
                               <Label>Status</Label>
-                              <Input {...field} placeholder="Status" />
+                              <FormControl>
+                                <Input {...field} placeholder="Status" />
+                              </FormControl>
+                              <FormMessage />
                             </FormItem>
                           )}
                         />
