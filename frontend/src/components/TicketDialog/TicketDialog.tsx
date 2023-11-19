@@ -15,7 +15,13 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "../ui/form";
 import { Textarea } from "../ui/textarea";
 
 // formSchema validation
@@ -109,52 +115,54 @@ const TicketDialog = () => {
                 name="title"
                 control={form.control}
                 render={({ field }) => (
-                  <Label>
-                    Title
-                    <Input {...field} placeholder="Title" />
-                  </Label>
+                  <FormItem>
+                    <Label>Title</Label>
+                    <FormControl>
+                      <Input {...field} placeholder="Title" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              <FormMessage>{form.formState.errors.title?.message}</FormMessage>
               <FormField
                 name="description"
                 control={form.control}
                 render={({ field }) => (
-                  <Label>
-                    Description
-                    <Textarea {...field} placeholder="Description" />
-                  </Label>
+                  <FormItem>
+                    <Label>Description</Label>
+                    <FormControl>
+                      <Textarea {...field} placeholder="Description" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              <FormMessage>
-                {form.formState.errors.description?.message}
-              </FormMessage>
               <FormField
                 name="priority"
                 control={form.control}
                 render={({ field }) => (
-                  <Label>
-                    Priority
-                    <select
-                      defaultValue=""
-                      {...field}
-                      className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
-                      <option value="" disabled>
-                        Select a priority
-                      </option>
-                      {priority &&
-                        priority.map((p) => {
-                          return (
-                            <option key={p.id} value={p.id}>
-                              {p.priority}
-                            </option>
-                          );
-                        })}
-                    </select>
-                    <FormMessage>
-                      {form.formState.errors.priority?.message}
-                    </FormMessage>
-                  </Label>
+                  <FormItem>
+                    <Label>Priority</Label>
+                    <FormControl>
+                      <select
+                        defaultValue=""
+                        {...field}
+                        className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                        <option value="" disabled>
+                          Select a priority
+                        </option>
+                        {priority &&
+                          priority.map((p) => {
+                            return (
+                              <option key={p.id} value={p.id}>
+                                {p.priority}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
               <Button
