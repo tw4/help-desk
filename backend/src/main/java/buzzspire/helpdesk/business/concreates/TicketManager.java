@@ -127,7 +127,7 @@ public class TicketManager implements TicketServices {
         if(!jwtTokenProvider.validateToken(token)){
             return new Result(false, "Token is not valid");
         }
-        if (!jwtTokenProvider.getRoleFromToken(token).equals("ADMIN")){
+        if (!jwtTokenProvider.getRoleFromToken(token).equals(RoleEnum.ADMIN.toString())){
             return new Result(false, "You are not authorized");
         }
 
@@ -150,7 +150,7 @@ public class TicketManager implements TicketServices {
         if (!jwtTokenProvider.validateToken(token)){
             return new Result(false, "Token is not valid");
         }
-        if (!jwtTokenProvider.getRoleFromToken(token).equals("ADMIN")){
+        if (!jwtTokenProvider.getRoleFromToken(token).equals(RoleEnum.ADMIN.toString())){
             return new Result(false, "You are not authorized");
         }
 
