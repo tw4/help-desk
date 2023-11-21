@@ -29,6 +29,7 @@ export enum TicketEndpoints {
   RemoveTicketAssignee = API_DOMAIN + "/api/ticket/{ticketId}/assignee/", // Remove Ticket Assignee
   CloseTicket = API_DOMAIN + "/api/ticket/", // Close ticket
   GetMyTickets = API_DOMAIN + "/api/ticket/myTickets", // Get My Tickets
+  UpdateTicketStatus = API_DOMAIN + "/api/ticket/{ticketId}/status/{statusId}", // Update Ticket Status
 }
 
 export enum RoleEndpoints {

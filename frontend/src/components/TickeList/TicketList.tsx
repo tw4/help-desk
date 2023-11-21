@@ -1,4 +1,4 @@
-import { API_DOMAIN, TicketEndpoints, UserEndpoints } from "@/enums/APIEnum";
+import { API_DOMAIN, TicketEndpoints } from "@/enums/APIEnum";
 import { Ticket } from "@/types/TicketType";
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
@@ -24,11 +24,13 @@ import {
 import { useAppSelector } from "@/hook/Redux";
 import { User } from "@/types/userType";
 import { getAllSupporters } from "@/api/user";
-import { closedTicket, getAllTickets } from "@/api/ticket";
+import { closedTicket, getAllTickets, updateTicketStatus } from "@/api/ticket";
 import { SearchTypeEnum } from "@/enums/SearchTypeEnum";
 import { useRouter } from "next/router";
 import { Role } from "@/enums/Role";
 import { useToast } from "../ui/use-toast";
+import { TicketStatus } from "@/types/TicketStatusType";
+import { getTicketStatusList } from "@/api/status";
 
 interface TicketListProps {
   searchType: SearchTypeEnum;
@@ -46,6 +48,7 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
   const [supporters, setSupporters] = useState<User[]>([]);
   const [searchResult, setSearchResult] = useState<Ticket[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [ticketStatus, setTicketStatus] = useState<TicketStatus[]>([]);
 
   // redux state
   const user: User = useAppSelector((state) => state.user.value as User);
@@ -59,6 +62,10 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
     );
     getAllSupporters(localStorage.getItem("token") || "").then((res) => {
       setSupporters(res);
+    });
+
+    getTicketStatusList(localStorage.getItem("token") || "").then((res) => {
+      setTicketStatus(res);
     });
   }, [currentPage]);
 
@@ -129,6 +136,25 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
   // close ticket handler
   const closeTicket = (id: number) => {
     closedTicket(localStorage.getItem("token") || "", id).then((res) => {
+      if (res) {
+        router.reload();
+      } else {
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          duration: 2000,
+        });
+      }
+    });
+  };
+
+  // update ticket status
+  const updateStatus = (ticketId: number, statusId: number) => {
+    updateTicketStatus(
+      localStorage.getItem("token") || "",
+      ticketId,
+      statusId
+    ).then((res) => {
       if (res) {
         router.reload();
       } else {
@@ -243,6 +269,33 @@ const TicketList: FC<TicketListProps> = ({ searchType, searchValue }) => {
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
                 )}
+                {user.role === Role.SUPPORT.toString() ||
+                  (user.role === Role.ADMIN.toString() && (
+                    <DropdownMenuSub>
+                      <DropdownMenuSubTrigger>
+                        change status
+                      </DropdownMenuSubTrigger>
+                      <DropdownMenuPortal>
+                        <DropdownMenuSubContent>
+                          {ticketStatus &&
+                            ticketStatus.map((status) => {
+                              return (
+                                <DropdownMenuItem
+                                  key={status.id}
+                                  onClick={() =>
+                                    updateStatus(
+                                      row.row.getValue("id"),
+                                      status.id
+                                    )
+                                  }>
+                                  {status.status}
+                                </DropdownMenuItem>
+                              );
+                            })}
+                        </DropdownMenuSubContent>
+                      </DropdownMenuPortal>
+                    </DropdownMenuSub>
+                  ))}
                 {user.role === Role.ADMIN.toString() && (
                   <DropdownMenuItem
                     onClick={() => deleteAssign(row.row.getValue("id"))}>
