@@ -198,4 +198,27 @@ public class TicketManager implements TicketServices {
         return new ResultData<>(ticketDAO.findAllByUserId(userID), "Ticket list", true);
     }
 
+    // this method is used to update a ticket status
+    @Override
+    public Result updateTicketStatus(long ticketId, String token, long statusId) {
+        if (!jwtTokenProvider.validateToken(token)){
+            return new Result(false, "Token is not valid");
+        }
+
+        Ticket ticket = ticketDAO.findById(ticketId).get();
+        String role = jwtTokenProvider.getRoleFromToken(token);
+
+        if (role.equals(RoleEnum.ADMIN.toString()) || role.equals(RoleEnum.SUPPORT.toString())){
+            try {
+                ticket.setStatus(TicketStatus.builder().id(statusId).build());
+                ticketDAO.save(ticket);
+            }catch (Exception e){
+                return new Result(false, "Ticket not updated");
+            }
+        } else {
+            return new Result(false, "You are not authorized");
+        }
+        return new Result(true, "Ticket updated successfully");
+    }
+
 }

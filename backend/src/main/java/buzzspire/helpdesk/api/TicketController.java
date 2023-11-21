@@ -90,4 +90,10 @@ public class TicketController {
         return ticketServices.getAllMyTicket(token);
     }
 
+    @Operation(summary = "update Ticket Status")
+    @PatchMapping("/{ticketId}/status/{statusId}")
+    public Result updateTicketStatus(@RequestHeader String token ,@PathVariable long ticketId, @PathVariable long statusId) {
+        return ticketServices.updateTicketStatus(ticketId, token, statusId);
+    }
+
 }

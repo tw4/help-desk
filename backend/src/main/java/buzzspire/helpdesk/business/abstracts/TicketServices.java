@@ -4,6 +4,7 @@ import buzzspire.helpdesk.core.utilities.result.Result;
 import buzzspire.helpdesk.core.utilities.result.ResultData;
 import buzzspire.helpdesk.dto.request.ticket.TicketRequest;
 import buzzspire.helpdesk.entities.concreates.Ticket;
+import buzzspire.helpdesk.entities.concreates.TicketStatus;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface TicketServices {
     Result removeTickerAssignee(long ticketId, String token);
     Result closeTicket(long ticketId, String token);
     ResultData<List<Ticket>> getAllMyTicket(String token);
+    Result updateTicketStatus(long ticketId, String token, long statusId);
 }
